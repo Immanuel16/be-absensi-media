@@ -7,9 +7,6 @@ module.exports = {
   port: 3306,
   host: config.db.host,
   dialect: 'mysql',
-  dialectOptions: {
-    socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
-  },
   logging: false,
   return: Boolean(config.db.return),
   pool: {
