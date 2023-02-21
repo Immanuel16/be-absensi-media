@@ -59,4 +59,4 @@ app.use((err, req, res) => {
   });
 });
 
-export default app;
+module.exports = app;
