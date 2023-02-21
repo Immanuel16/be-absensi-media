@@ -1,9 +1,9 @@
-import express from 'express';
-import * as userProfileController from '../../../controllers/user.controller';
-import * as userProfileMiddleware from '../../../middlewares/user.middlewares';
+const express = require("express");
+const userProfileController = require("../../../controllers/user.controller");
+const userProfileMiddleware = require("../../../middlewares/user.middlewares");
 
 const router = express.Router();
 
 router.post('', userProfileMiddleware.registerCrew, userProfileController.registerCrew);
 
-export default router;
+module.exports = router;

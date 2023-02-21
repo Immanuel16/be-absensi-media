@@ -1,6 +1,6 @@
-import {api_log} from '../models';
+const {api_log} = require("../models");
 
-export function insertLog(data) {
+exports.insertLog = (data) => {
   return api_log.create(data);
 }
 

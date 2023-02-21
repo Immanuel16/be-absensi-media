@@ -1,7 +1,7 @@
-import { isUndefined } from "lodash";
-import moment from "moment";
+const { isUndefined } = require("lodash");
+const moment = require("moment");
 
-export const generateCreatedAttribute = (req) => (
+exports.generateCreatedAttribute = (req) => (
   {
     created_by: !isUndefined(req.user) ? req.user.id : req.headers.host,
     created_from: req.headers['user-agent'],
@@ -9,7 +9,7 @@ export const generateCreatedAttribute = (req) => (
   }
 )
 
-export const generateModifiedAttribute = (req) => (
+exports.generateModifiedAttribute = (req) => (
   {
     updated_by: !isUndefined(req.user) ? req.user.id : req.headers.host,
     updated_from: req.headers['user-agent'],

@@ -1,6 +1,10 @@
-import express from 'express';
-import passport from 'passport';
-import userProfileRoutes from "./user_profiles"
+const express = require("express");
+const passport = require("passport");
+const userProfileRoutes = require("./user_profiles");
+
+// import express from 'express';
+// import passport from 'passport';
+// import userProfileRoutes from "./user_profiles"
 
 require('../../../utils/passport.util');
 
@@ -12,4 +16,4 @@ router.use(passport.authenticate('user', {session: false}));
 router.use('/users', userProfileRoutes);
 
 
-export default router;
+module.exports = router;

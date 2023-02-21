@@ -1,8 +1,7 @@
-import express from 'express';
-import authRoutes from './auth/auth.router';
-import appRoutes from './apps';
-import publicRoutes from './public'
-
+const express = require("express");
+const authRoutes = require("./auth/auth.router");
+const appRoutes = require("./apps");
+const publicRoutes = require("./public");
 
 const router = express.Router();
 
@@ -10,4 +9,4 @@ router.use('/auth', authRoutes);
 router.use('/apps', appRoutes);
 router.use('/public', publicRoutes);
 
-export default router;
+module.exports = router;

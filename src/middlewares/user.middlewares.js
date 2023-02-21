@@ -1,9 +1,9 @@
-import Joi from "joi";
-import { isEmpty } from "lodash";
-import { responseError } from "../utils/response.util";
-import { httpStatus } from "../variables/response.variable";
+const Joi = require("joi");
+const {isEmpty} = require("lodash");
+const {responseError} = require("../utils/response.util");
+const {httpStatus} = require("../variables/response.variable");
 
-export const registerCrew = (req, res, next) => {
+exports.registerCrew = (req, res, next) => {
   try {
     const schema = Joi.object({
       full_name: Joi.string().min(3).required(),

@@ -1,12 +1,13 @@
-import bcryptjs from "bcryptjs";
-import * as jwt from "jsonwebtoken";
-import config from "../configs/env.config";
-import * as crewQueries from "../queries/user_profiles.query";
-import { base64Decrypt, base64Encrypt } from "../utils/encryptor.util";
-import { responseError, responseSuccess } from "../utils/response.util";
-import { httpStatus } from "../variables/response.variable";
+const bcryptjs = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const config = require("../configs/env.config");
+const crewQueries = require("../queries/user_profiles.query");
+const { base64Decrypt, base64Encrypt } = require("../utils/encryptor.util");
+const {responseError, responseSuccess} = require("../utils/response.util");
+const {httpStatus} = require("../variables/response.variable");
 
-export async function authUser(req, res) {
+
+exports.authUser =  async (req, res) => {
   try {
     const { username, password } = req.body;
 
@@ -16,7 +17,6 @@ export async function authUser(req, res) {
         status: 1,
       },
     });
-    console.log(user)
 
     if (!user) throw new Error("User not found");
 

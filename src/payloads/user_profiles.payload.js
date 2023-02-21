@@ -1,9 +1,9 @@
-import {v4 as uuidv4} from 'uuid';
-import bcryptjs from 'bcryptjs';
-import { base64Decrypt } from "../utils/encryptor.util";
-import moment from 'moment';
+const {v4} = require("uuid");
+const bcryptjs = require("bcryptjs");
+const moment = require("moment");
+const { base64Decrypt } = require("../utils/encryptor.util");
 
-export const registerCrewPayload = params => (
+exports.registerCrewPayload = params => (
   {
     id: uuidv4(),
     full_name: params.full_name,

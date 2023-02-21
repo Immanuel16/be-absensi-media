@@ -1,5 +1,5 @@
-import { loggerGenerator } from "../payloads/apilog.payload";
-import { insertLog } from "../queries/apilog.query";
+const { loggerGenerator } = require("../payloads/apilog.payload");
+const { insertLog } = require("../queries/apilog.query");
 
 
 function generateTxId() {

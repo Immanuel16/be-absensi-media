@@ -1,9 +1,10 @@
-import Joi from "joi";
-import { isEmpty } from "lodash";
-import { responseError } from "../utils/response.util";
-import { httpStatus } from "../variables/response.variable";
+const Joi = require("joi");
+const {isEmpty} = require("lodash");
+const {responseError} = require("../utils/response.util");
+const {httpStatus} = require("../variables/response.variable");
 
-export const authUser = async (req, res, next) => {
+
+exports.authUser = async (req, res, next) => {
   try {
     const schema = Joi.object({
       username: Joi.string().required(),

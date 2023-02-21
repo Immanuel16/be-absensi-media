@@ -1,11 +1,11 @@
-import { isEmpty } from 'lodash';
-import { registerCrewPayload } from '../payloads/register.payload';
-import * as crewQueries from '../queries/user_profiles.query';
-import { responseError, responseSuccess } from '../utils/response.util';
-import { generateCreatedAttribute, generateModifiedAttribute } from '../utils/userstamp.util';
-import { httpStatus } from '../variables/response.variable';
+const {isEmpty} = require("lodash");
+const {registerCrewPayload} = require("../payloads/register.payload");
+const crewQueries = require("../queries/user_profiles.query");
+const {responseError, responseSuccess} = require("../utils/response.util");
+const {generateCreatedAttribute, generateModifiedAttribute} = require("../utils/userstamp.util");
+const {httpStatus} = require("../variables/response.variable");
 
-export const registerCrew = async (req, res) => {
+exports.registerCrew = async (req, res) => {
   try {
     const {username} = req.body;
     const data = {

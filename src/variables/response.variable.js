@@ -1,4 +1,4 @@
-export const httpStatus = {
+exports.httpStatus = {
   SUCCESS: 200,
   ERROR_MIDDLEWARE: 400,
   ERROR_UNAUTHORIZED: 401,

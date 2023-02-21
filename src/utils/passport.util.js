@@ -1,6 +1,5 @@
-import config from "../configs/env.config";
-import * as userQueries from "../queries/user_profiles.query";
-
+const config = require("../configs/env.config");
+const userQueries = require("../queries/user_profiles.query");
 const passport = require("passport");
 const JwtStrategy = require("passport-jwt").Strategy;
 const { ExtractJwt } = require("passport-jwt");
