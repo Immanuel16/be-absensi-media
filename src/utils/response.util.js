@@ -12,7 +12,7 @@ function generateTxId() {
   return result;
 }
 
-export async function responseSuccess(req, res, code, message, data) {
+const responseSuccess = async(req, res, code, message, data) => {
   const txId = generateTxId(code);
   return res.status(200).send({
     success: true,
@@ -21,7 +21,7 @@ export async function responseSuccess(req, res, code, message, data) {
   });
 }
 
-export async function responseError(req, res, code, message, data) {
+const responseError = async(req, res, code, message, data) => {
   const txId = generateTxId();
   insertLog(loggerGenerator(req, code, message, txId));
   return res.status(code).send({
@@ -29,3 +29,5 @@ export async function responseError(req, res, code, message, data) {
     message: `Error - ${message} - ${txId}`
   });
 }
+
+module.exports = {responseSuccess, responseError}
