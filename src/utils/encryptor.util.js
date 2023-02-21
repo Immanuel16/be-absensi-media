@@ -1,4 +1,4 @@
-import CryptoJS from 'crypto-js';
+const CryptoJS = require('crypto-js');
 
 const base64Decrypt = (data) => {
   return CryptoJS.enc.Utf8.stringify(CryptoJS.enc.Base64.parse(data));
