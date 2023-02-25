@@ -4,6 +4,6 @@ const userProfileMiddleware = require("../../../middlewares/user.middlewares");
 
 const router = express.Router();
 
-router.post('/register', userProfileMiddleware.registerCrew, userProfileController.registerCrew);
+router.get('/detail', userProfileController.getUserDetail);
 
 module.exports = router;

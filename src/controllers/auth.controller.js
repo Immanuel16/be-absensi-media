@@ -9,7 +9,8 @@ const {httpStatus} = require("../variables/response.variable");
 
 exports.authUser =  async (req, res) => {
   try {
-    const { username, password } = req.body;
+    let { username, password } = req.body;
+    username = base64Encrypt(username);
 
     const user = await crewQueries.authUser({
       where: {

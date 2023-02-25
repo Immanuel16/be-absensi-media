@@ -15,22 +15,37 @@ module.exports = {
       full_name: {
         type: Sequelize.STRING
       },
-      username: {
-        type: Sequelize.STRING
-      },
-      address: {
-        type: Sequelize.STRING
-      },
-      email: {
+      birth_date: {
         type: Sequelize.STRING
       },
       phone: {
         type: Sequelize.STRING
       },
-      birth_date: {
+      bank_id: {
         type: Sequelize.STRING
       },
-      photo: {
+      bank_acc_num: {
+        type: Sequelize.STRING
+      },
+      province: {
+        type: Sequelize.STRING
+      },
+      city: {
+        type: Sequelize.STRING
+      },
+      district: {
+        type: Sequelize.STRING
+      },
+      subdistrict: {
+        type: Sequelize.STRING
+      },
+      address: {
+        type: Sequelize.STRING
+      },
+      username: {
+        type: Sequelize.STRING
+      },
+      password: {
         type: Sequelize.STRING
       },
       kom: {
@@ -45,14 +60,11 @@ module.exports = {
       orientasi: {
         type: Sequelize.INTEGER
       },
+      photo: {
+        type: Sequelize.STRING
+      },
       status: {
         type: Sequelize.INTEGER
-      },
-      password: {
-        type: Sequelize.STRING
-      },
-      bank_id: {
-        type: Sequelize.STRING
       },
       role: {
         type: Sequelize.STRING

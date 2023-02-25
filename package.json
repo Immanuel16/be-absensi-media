@@ -8,7 +8,8 @@
     "babel-node": "babel-node",
     "dev:env": "set NODE_ENV=development",
     "clean": "rm -rf dist",
-    "build": "set NODE_ENV=production && npm run clean && babel ./src --out-dir dist --copy-files"
+    "build": "set NODE_ENV=production && npm run clean && babel ./src --out-dir dist --copy-files",
+    "migrate":"npx sequelize-cli db:migrate"
   },
   "author": "nuel",
   "license": "ISC",
