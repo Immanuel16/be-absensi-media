@@ -3,18 +3,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const config = require("./configs/env.config");
 const v1 = require("./routes/v1");
-const { httpStatus } = require("./variables/response.variable")
-
-
-// import bodyParser from 'body-parser';
-// import cors from 'cors';
-// import express from 'express';
-// import helmet from 'helmet';
-// import compression from 'compression';
-// import config from './configs/env.config';
-// import { db } from './models';
-// import v1 from './routes/v1';
-// import { httpStatus } from './variables/response.variable';
+const { httpStatus } = require("./variables/response.variable");
+const { sendMailRegister } = require("./services/email.service");
 
 const app = express();
 
@@ -39,6 +29,7 @@ app.get('/', (req, res) => {
     version: config.app.version,
     author: config.app.author,
   });
+
 });
 
 // catch 404 and forward to error handler

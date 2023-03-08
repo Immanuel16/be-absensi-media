@@ -32,7 +32,8 @@ module.exports = (sequelize, DataTypes) => {
     orientasi: DataTypes.INTEGER,
     photo: DataTypes.STRING,
     status: DataTypes.INTEGER,
-    role: DataTypes.STRING
+    role: DataTypes.STRING,
+    email: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'user_profiles',

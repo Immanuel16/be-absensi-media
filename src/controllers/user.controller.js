@@ -3,17 +3,13 @@ const { registerCrewPayload } = require("../payloads/register.payload");
 const crewQueries = require("../queries/user_profiles.query");
 const { base64Decrypt, base64Encrypt } = require("../utils/encryptor.util");
 const { responseError, responseSuccess } = require("../utils/response.util");
-const {
-  generateCreatedAttribute,
-  generateModifiedAttribute,
-} = require("../utils/userstamp.util");
 const { httpStatus } = require("../variables/response.variable");
+const {sendMailRegister} = require('../services/email.service');
 
 const encryptValues = (objName) => {
   Object.keys(objName).forEach((item) => {
     if (
       item === "full_name" ||
-      item === "username" ||
       item === "province" ||
       item === "city" ||
       item === "district" ||
@@ -31,14 +27,12 @@ const encryptValues = (objName) => {
 };
 const registerCrew = async (req, res) => {
   try {
-    let { username, full_name } = req.body;
+    let { username, full_name, email, password } = req.body;
     username = username.toLowerCase();
     full_name = full_name.toLowerCase();
     encryptValues(req.body);
     const data = {
       ...registerCrewPayload(req.body),
-      ...generateCreatedAttribute(req),
-      ...generateModifiedAttribute(req),
     };
 
     const user = await crewQueries.findAll({
@@ -50,8 +44,12 @@ const registerCrew = async (req, res) => {
     if(!isEmpty(user)) throw new Error('Username already exists');
 
     await crewQueries.create(data);
+    
+    await sendMailRegister({
+      username, email, full_name, password: base64Decrypt(password)
+    })
 
-    return responseSuccess(req, res, httpStatus.ERROR_GENERAL, '', null);
+    return responseSuccess(req, res, httpStatus.SUCCESS, '', null);
   } catch (error) {
     return responseError(
       req,
@@ -63,7 +61,7 @@ const registerCrew = async (req, res) => {
   }
 };
 
-const getUserDetail = async (req, res) => {
+const getCrewDetail = async (req, res) => {
   try {
     const { id } = req.user;
     // const id = base64Decrypt(req.user.id);
@@ -86,4 +84,6 @@ const getUserDetail = async (req, res) => {
   }
 };
 
-module.exports = { registerCrew, getUserDetail };
+const getBankCrew = async (req, res) => {}
+
+module.exports = { registerCrew, getCrewDetail };

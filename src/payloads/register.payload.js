@@ -22,6 +22,7 @@ exports.registerCrewPayload = params => (
     hmc: params.hmc,
     orientasi: params.orientasi,
     baptis: params.baptis,
+    email: params.email,
     status: 1,
     role: 0,
     createdAt: moment().toISOString(),

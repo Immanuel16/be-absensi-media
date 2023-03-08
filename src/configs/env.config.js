@@ -18,6 +18,15 @@ const config = {
     return: process.env.DB_RETURN,
     dialect: 'mysql'
   },
+  email: {
+    host: process.env.EMAIL_HOST,
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS
+    },
+    port: 465,
+    secure: true
+  }
 };
 
 module.exports = config;
