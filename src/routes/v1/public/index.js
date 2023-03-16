@@ -1,7 +1,7 @@
 const express = require("express");
-const registerRoutes = require("./register");
-const bankRoutes = require("./bank");
-const areaRoutes = require("./areas");
+const registerRoutes = require("./register.router");
+const bankRoutes = require("./bank.router");
+const areaRoutes = require("./areas.router");
 
 const router = express.Router();
 

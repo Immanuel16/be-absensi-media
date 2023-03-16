@@ -48,6 +48,11 @@ module.exports = (sequelize, DataTypes) => {
           include: ['password'],
         },
       },
+      forBirthday: {
+        attributes: {
+          exclude: ['password', 'createdBy', 'createdFrom', 'createdAt', 'updatedBy', 'updatedFrom', 'updatedAt', 'province', 'district', 'city', 'subdistrict', 'address', 'username', 'kom', 'hmc', 'baptis', 'status', 'role', 'email', 'phone', 'orientasi', 'bank_id', 'bank_acc_num', 'photo']
+        }
+      }
     },
   });
   return user_profiles;

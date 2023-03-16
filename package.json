@@ -40,6 +40,7 @@
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "path": "^0.12.7",
+    "pdfkit-table": "^0.1.99",
     "sequelize": "^6.28.0",
     "uuid": "^9.0.0"
   },
