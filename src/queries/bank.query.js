@@ -1,5 +1,5 @@
-const {bank_accounts} = require("../models");
+const { bank_accounts } = require("../models");
 
-const getAll = () => bank_accounts.findAll();
+const getAll = (params) => bank_accounts.findAll(params);
 
-module.exports = { getAll }
+module.exports = { getAll };

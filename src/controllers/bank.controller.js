@@ -4,7 +4,9 @@ const { responseSuccess, responseError } = require("../utils/response.util");
 
 const getListBank = async (req, res) => {
   try {
-    const response = await bankQueries.getAll();
+    const response = await bankQueries.getAll({
+      order: [["bank_name", "ASC"]],
+    });
 
     return responseSuccess(req, res, httpStatus.SUCCESS, "", response);
   } catch (error) {

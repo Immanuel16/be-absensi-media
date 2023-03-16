@@ -5,9 +5,9 @@ const { httpStatus } = require("../variables/response.variable");
 const getListProvince = async (req, res) => {
   try {
     const { data } = await apiHelperCoverage.get("provinces.json");
-    data.map(d => {
-      d.name = d.name.toLowerCase()
-    })
+    data.map((d) => {
+      d.name = d.name.toLowerCase();
+    });
     return responseSuccess(req, res, httpStatus.SUCCESS, "", data);
   } catch (error) {
     return responseError(
@@ -24,9 +24,9 @@ const getListCity = async (req, res) => {
   const { id } = req.params;
   try {
     const { data } = await apiHelperCoverage.get(`regencies/${id}.json`);
-    data.map(d => {
-      d.name = d.name.toLowerCase()
-    })
+    data.map((d) => {
+      d.name = d.name.toLowerCase();
+    });
     return responseSuccess(req, res, httpStatus.SUCCESS, "", data);
   } catch (error) {
     return responseError(
@@ -43,9 +43,9 @@ const getListDistrict = async (req, res) => {
   const { id } = req.params;
   try {
     const { data } = await apiHelperCoverage.get(`districts/${id}.json`);
-    data.map(d => {
-      d.name = d.name.toLowerCase()
-    })
+    data.map((d) => {
+      d.name = d.name.toLowerCase();
+    });
     return responseSuccess(req, res, httpStatus.SUCCESS, "", data);
   } catch (error) {
     return responseError(
@@ -62,9 +62,9 @@ const getListSubDistrict = async (req, res) => {
   const { id } = req.params;
   try {
     const { data } = await apiHelperCoverage.get(`villages/${id}.json`);
-    data.map(d => {
-      d.name = d.name.toLowerCase()
-    })
+    data.map((d) => {
+      d.name = d.name.toLowerCase();
+    });
     return responseSuccess(req, res, httpStatus.SUCCESS, "", data);
   } catch (error) {
     return responseError(
@@ -77,4 +77,9 @@ const getListSubDistrict = async (req, res) => {
   }
 };
 
-module.exports = { getListProvince, getListCity, getListDistrict, getListSubDistrict };
+module.exports = {
+  getListProvince,
+  getListCity,
+  getListDistrict,
+  getListSubDistrict,
+};
