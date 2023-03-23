@@ -1,7 +1,7 @@
 const Joi = require("joi");
-const {isEmpty} = require("lodash");
-const {responseError} = require("../utils/response.util");
-const {httpStatus} = require("../variables/response.variable");
+const { isEmpty } = require("lodash");
+const { responseError } = require("../utils/response.util");
+const { httpStatus } = require("../variables/response.variable");
 
 exports.registerCrew = (req, res, next) => {
   try {
@@ -12,6 +12,7 @@ exports.registerCrew = (req, res, next) => {
       phone: Joi.string().min(8).max(14).required(),
       bank_id: Joi.string().required(),
       bank_acc_num: Joi.string().required(),
+      bank_acc_name: Joi.string().required(),
       province: Joi.string().required(),
       city: Joi.string().required(),
       district: Joi.string().required(),
@@ -19,19 +20,35 @@ exports.registerCrew = (req, res, next) => {
       address: Joi.string().min(5).required(),
       email: Joi.string().email().required(),
       password: Joi.string().base64().required(),
-      kom:Joi.number().required(),
+      kom: Joi.number().required(),
       hmc: Joi.number().required(),
       baptis: Joi.number().required(),
       orientasi: Joi.number().required(),
-      status: Joi.number().required()
-    })
+      status: Joi.number().required(),
+    });
 
-    const result = schema.validate({...req.body, ...req.params, ...req.query});
-    if(!isEmpty(result.error)){
-      return responseError(req, res, httpStatus.ERROR_MIDDLEWARE, result.error.message, null)
+    const result = schema.validate({
+      ...req.body,
+      ...req.params,
+      ...req.query,
+    });
+    if (!isEmpty(result.error)) {
+      return responseError(
+        req,
+        res,
+        httpStatus.ERROR_MIDDLEWARE,
+        result.error.message,
+        null
+      );
     }
     return next();
   } catch (error) {
-    return responseError(req, res, httpStatus.ERROR_GENERAL, error.message, null);
+    return responseError(
+      req,
+      res,
+      httpStatus.ERROR_GENERAL,
+      error.message,
+      null
+    );
   }
-}
+};

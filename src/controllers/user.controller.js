@@ -194,11 +194,9 @@ const getCrewMinistryHistory = async (req, res) => {
           [Op.between]: [start_date, end_date],
         },
       },
-      order: [
-        ["tanggal", "DESC"]
-      ],
+      order: [["tanggal", "DESC"]],
       offset,
-      limit
+      limit,
     });
 
     const { rows, count } = response;

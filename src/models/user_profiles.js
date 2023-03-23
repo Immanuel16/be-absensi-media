@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class user_profiles extends Model {
     /**
@@ -13,47 +11,85 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  user_profiles.init({
-    full_name: DataTypes.STRING,
-    birth_date: DataTypes.STRING,
-    phone: DataTypes.STRING,
-    bank_id: DataTypes.STRING,
-    bank_acc_num: DataTypes.STRING,
-    province: DataTypes.STRING,
-    city: DataTypes.STRING,
-    district: DataTypes.STRING,
-    subdistrict: DataTypes.STRING,
-    address: DataTypes.STRING,
-    username: DataTypes.STRING,
-    password: DataTypes.STRING,
-    kom: DataTypes.INTEGER,
-    hmc: DataTypes.INTEGER,
-    baptis: DataTypes.INTEGER,
-    orientasi: DataTypes.INTEGER,
-    photo: DataTypes.STRING,
-    status: DataTypes.INTEGER,
-    role: DataTypes.STRING,
-    email: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'user_profiles',
-    defaultScope: {
-      attributes: {
-        exclude: ['password', 'createdBy', 'createdFrom', 'createdAt', 'updatedBy', 'updatedFrom', 'updatedAt'],
-      },
+  user_profiles.init(
+    {
+      full_name: DataTypes.STRING,
+      birth_date: DataTypes.STRING,
+      phone: DataTypes.STRING,
+      bank_id: DataTypes.STRING,
+      bank_acc_num: DataTypes.STRING,
+      bank_acc_name: DataTypes.STRING,
+      province: DataTypes.STRING,
+      city: DataTypes.STRING,
+      district: DataTypes.STRING,
+      subdistrict: DataTypes.STRING,
+      address: DataTypes.STRING,
+      username: DataTypes.STRING,
+      password: DataTypes.STRING,
+      kom: DataTypes.INTEGER,
+      hmc: DataTypes.INTEGER,
+      baptis: DataTypes.INTEGER,
+      orientasi: DataTypes.INTEGER,
+      photo: DataTypes.STRING,
+      status: DataTypes.INTEGER,
+      role: DataTypes.STRING,
+      email: DataTypes.STRING,
     },
-    scopes: {
-      withPassword: {
+    {
+      sequelize,
+      modelName: "user_profiles",
+      defaultScope: {
         attributes: {
-          include: ['password'],
+          exclude: [
+            "password",
+            "createdBy",
+            "createdFrom",
+            "createdAt",
+            "updatedBy",
+            "updatedFrom",
+            "updatedAt",
+          ],
         },
       },
-      forBirthday: {
-        attributes: {
-          exclude: ['password', 'createdBy', 'createdFrom', 'createdAt', 'updatedBy', 'updatedFrom', 'updatedAt', 'province', 'district', 'city', 'subdistrict', 'address', 'username', 'kom', 'hmc', 'baptis', 'status', 'role', 'email', 'phone', 'orientasi', 'bank_id', 'bank_acc_num', 'photo']
-        }
-      }
-    },
-  });
+      scopes: {
+        withPassword: {
+          attributes: {
+            include: ["password"],
+          },
+        },
+        forBirthday: {
+          attributes: {
+            exclude: [
+              "password",
+              "createdBy",
+              "createdFrom",
+              "createdAt",
+              "updatedBy",
+              "updatedFrom",
+              "updatedAt",
+              "province",
+              "district",
+              "city",
+              "subdistrict",
+              "address",
+              "username",
+              "kom",
+              "hmc",
+              "baptis",
+              "status",
+              "role",
+              "email",
+              "phone",
+              "orientasi",
+              "bank_id",
+              "bank_acc_num",
+              "photo",
+              "bank_acc_name",
+            ],
+          },
+        },
+      },
+    }
+  );
   return user_profiles;
 };
