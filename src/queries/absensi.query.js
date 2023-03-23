@@ -12,4 +12,7 @@ const create = (data) => absens.create(data);
 /* edit absensi */
 const updateById = (data, id) => absens.update(data, { where: { id } });
 
-module.exports = { findOne, findAndCountAll, create, updateById };
+/* delete absensi */
+const destroy = (params) => absens.destroy(params);
+
+module.exports = { findOne, findAndCountAll, create, destroy, updateById };
