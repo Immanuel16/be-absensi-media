@@ -5,6 +5,9 @@ const findOne = (params) => user_profiles.findOne(params);
 
 const findAll = (params) => user_profiles.findAll(params);
 
+const findAllUserAbsence = (params) =>
+  user_profiles.scope("forAbsence").findAll(params);
+
 const authUser = (params) =>
   user_profiles.scope("withPassword").findOne(params);
 
@@ -22,6 +25,7 @@ module.exports = {
   authUser,
   create,
   findAll,
+  findAllUserAbsence,
   findAndCountAll,
   findCrewBirthdays,
   findOne,

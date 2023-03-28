@@ -240,9 +240,33 @@ const getCrewMinistryHistory = async (req, res) => {
 
 const getBankCrew = async (req, res) => {};
 
+const getListUserAbsence = async (req, res) => {
+  try {
+    let response = await crewQueries.findAllUserAbsence({
+      order: [["username", "ASC"]],
+    });
+
+    response = response.map((res) => ({
+      ...res,
+      username: res.username.toLowerCase(),
+    }));
+
+    return responseSuccess(req, res, httpStatus.SUCCESS, "", response);
+  } catch (error) {
+    return responseError(
+      req,
+      res,
+      httpStatus.ERROR_GENERAL,
+      error.message,
+      null
+    );
+  }
+};
+
 module.exports = {
   registerCrew,
   getCrewDetail,
   getCrewBirthdays,
   getCrewMinistryHistory,
+  getListUserAbsence,
 };
