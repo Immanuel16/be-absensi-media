@@ -72,7 +72,6 @@ module.exports = (sequelize, DataTypes) => {
               "city",
               "subdistrict",
               "address",
-              "username",
               "kom",
               "hmc",
               "baptis",
