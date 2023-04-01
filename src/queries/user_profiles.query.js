@@ -24,7 +24,7 @@ const findCrewBirthdays = (params) => {
 const findAndCountAll = (params) => user_profiles.findAndCountAll(params);
 
 const findCrewBank = () => {
-  const mainQuery = `SELECT DISTINCT usr.username, usr.bank_acc_name, bank.bank_name FROM user_profiles as usr LEFT JOIN bank_accounts as bank ON usr.bank_id = bank.bank_code`;
+  const mainQuery = `SELECT DISTINCT usr.username, usr.bank_acc_name, usr.bank_acc_num, bank.bank_name FROM user_profiles as usr LEFT JOIN bank_accounts as bank ON usr.bank_id = bank.bank_code`;
   const completeQuery = `${mainQuery} ORDER BY usr.username;`;
 
   // const completeQuery = `${mainQuery} ORDER BY usr.username OFFSET :offset LIMIT :limit;`;

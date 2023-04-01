@@ -247,6 +247,7 @@ const getBankCrew = async (req, res) => {
       d.id = base64Encrypt(d.id);
       d.username = d.username.toLowerCase();
       d.bank_acc_name = d.bank_acc_name.toLowerCase();
+      d.bank_acc_num = base64Decrypt(d.bank_acc_num);
     });
 
     return responseSuccess(
