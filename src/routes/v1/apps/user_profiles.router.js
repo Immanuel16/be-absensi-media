@@ -8,5 +8,6 @@ router.get("/detail", userProfileController.getCrewDetail);
 router.get("/birthdays", userProfileController.getCrewBirthdays);
 router.get("/ministry", userProfileController.getCrewMinistryHistory);
 router.get("/absence", userProfileController.getListUserAbsence);
+router.get("/bank-account", userProfileController.getBankCrew);
 
 module.exports = router;

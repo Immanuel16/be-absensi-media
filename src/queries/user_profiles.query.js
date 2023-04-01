@@ -1,5 +1,7 @@
 // import { user_profiles } from "../models/index";
-const { user_profiles } = require("../models");
+const { QueryTypes } = require("sequelize");
+const { user_profiles, sequelize } = require("../models");
+const { base64Decrypt } = require("../utils/encryptor.util");
 
 const findOne = (params) => user_profiles.findOne(params);
 
@@ -21,6 +23,25 @@ const findCrewBirthdays = (params) => {
 
 const findAndCountAll = (params) => user_profiles.findAndCountAll(params);
 
+const findCrewBank = () => {
+  // const mainQuery =
+  //   "SELECT DISTINCT " +
+  //   "usr.username, usr.bank_acc_name, usr.id, " +
+  //   'bank.bank_name as "bankName", ' +
+  //   "FROM user_profiles usr " +
+  //   `LEFT JOIN bank_accounts bank ON bank.bank_code = ${base64Decrypt(
+  //     usr.bank_id
+  //   )}`;
+  const mainQuery = `SELECT DISTINCT usr.username, usr.bank_acc_name, bank.bank_name FROM user_profiles as usr LEFT JOIN bank_accounts as bank ON usr.bank_id = bank.bank_code`;
+  const completeQuery = `${mainQuery} ORDER BY usr.username;`;
+
+  // const completeQuery = `${mainQuery} ORDER BY usr.username OFFSET :offset LIMIT :limit;`;
+  // return sequelize.literal(completeQuery);
+  return sequelize.query(completeQuery, {
+    type: QueryTypes.SELECT,
+  });
+};
+
 module.exports = {
   authUser,
   create,
@@ -28,6 +49,7 @@ module.exports = {
   findAllUserAbsence,
   findAndCountAll,
   findCrewBirthdays,
+  findCrewBank,
   findOne,
   updateById,
 };

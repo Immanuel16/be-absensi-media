@@ -20,7 +20,6 @@ const encryptValues = (objName) => {
       item === "city" ||
       item === "district" ||
       item === "subdistrict" ||
-      item === "bank_id" ||
       item === "bank_acc_num" ||
       item === "address" ||
       item === "email" ||
@@ -238,7 +237,33 @@ const getCrewMinistryHistory = async (req, res) => {
   }
 };
 
-const getBankCrew = async (req, res) => {};
+const getBankCrew = async (req, res) => {
+  try {
+    const offset = req.query.offset || 0;
+    const limit = req.query.limit || 20;
+
+    const data = await crewQueries.findCrewBank();
+    data.forEach((d) => {
+      d.id = base64Encrypt(d.id);
+    });
+
+    return responseSuccess(
+      req,
+      res,
+      httpStatus.SUCCESS,
+      "Get List Bank Crew",
+      data
+    );
+  } catch (error) {
+    return responseError(
+      req,
+      res,
+      httpStatus.ERROR_GENERAL,
+      error.message,
+      null
+    );
+  }
+};
 
 const getListUserAbsence = async (req, res) => {
   try {
@@ -265,6 +290,7 @@ const getListUserAbsence = async (req, res) => {
 
 module.exports = {
   registerCrew,
+  getBankCrew,
   getCrewDetail,
   getCrewBirthdays,
   getCrewMinistryHistory,
