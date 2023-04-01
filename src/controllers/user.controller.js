@@ -245,6 +245,8 @@ const getBankCrew = async (req, res) => {
     const data = await crewQueries.findCrewBank();
     data.forEach((d) => {
       d.id = base64Encrypt(d.id);
+      d.username = d.username.toLowerCase();
+      d.bank_acc_name = d.bank_acc_name.toLowerCase();
     });
 
     return responseSuccess(
