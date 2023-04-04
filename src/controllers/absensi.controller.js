@@ -17,7 +17,7 @@ const getListAbsen = async (req, res) => {
   try {
     const keyword = `%${req.query.keyword}%` || "%";
     const offset = +req.query.offset || 0;
-    const limit = +req.query.limit || 5;
+    const limit = +req.query.limit || 6;
     const start_date = req.query.start_date || startDate;
     const end_date = req.query.end_date || endDate;
 
@@ -102,6 +102,35 @@ const getListAbsen = async (req, res) => {
     };
 
     return responseSuccess(req, res, httpStatus.SUCCESS, "Get Absen", data);
+  } catch (error) {
+    return responseError(
+      req,
+      res,
+      httpStatus.ERROR_GENERAL,
+      error.message,
+      null
+    );
+  }
+};
+
+const getListAllAbsen = async (req, res) => {
+  try {
+    const start_date = req.query.start_date || startDate;
+    const end_date = req.query.end_date || endDate;
+
+    const data = await absensiQueries.findAll({
+      where: {
+        tanggal: {
+          [Op.between]: [start_date, end_date],
+        },
+      },
+      order: [
+        ["tanggal", "ASC"],
+        ["ir", "ASC"],
+      ],
+    });
+
+    return responseSuccess(req, res, httpStatus.SUCCESS, null, data);
   } catch (error) {
     return responseError(
       req,
@@ -218,6 +247,7 @@ module.exports = {
   getListAbsen,
   createAbsen,
   getDetailAbsen,
+  getListAllAbsen,
   updateAbsen,
   deleteAbsen,
 };

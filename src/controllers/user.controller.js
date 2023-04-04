@@ -9,6 +9,7 @@ const { sendMailRegister } = require("../services/email.service");
 const moment = require("moment");
 const { Op } = require("sequelize");
 const { worshipType } = require("../utils/type.util");
+const accountQueries = require("../queries/account.query");
 
 const startDate = moment().startOf("month").format("YYYY-MM-DD");
 const endDate = moment().endOf("month").format("YYYY-MM-DD");
@@ -291,6 +292,117 @@ const getListUserAbsence = async (req, res) => {
   }
 };
 
+const getTotalMinistryCrew = async (req, res) => {
+  const start_date = req.query.start_date || startDate;
+  const end_date = req.query.end_date || endDate;
+  try {
+    let response = await crewQueries.findAllUserAbsence({
+      order: [["username", "ASC"]],
+    });
+
+    response = response.map((res) => ({
+      ...res,
+      username: res.username.toLowerCase(),
+    }));
+
+    let data = [];
+
+    await Promise.all(
+      response.map(async (res) => {
+        try {
+          let total = await accountQueries.count({
+            where: {
+              [Op.or]: [
+                {
+                  kom1: {
+                    [Op.substring]: res.username,
+                  },
+                },
+                {
+                  kom2: {
+                    [Op.substring]: res.username,
+                  },
+                },
+                {
+                  lighting: {
+                    [Op.substring]: res.username,
+                  },
+                },
+                {
+                  cam1: {
+                    [Op.substring]: res.username,
+                  },
+                },
+                {
+                  cam2: {
+                    [Op.substring]: res.username,
+                  },
+                },
+                {
+                  cam3: {
+                    [Op.substring]: res.username,
+                  },
+                },
+                {
+                  switcher: {
+                    [Op.substring]: res.username,
+                  },
+                },
+                {
+                  photo: {
+                    [Op.substring]: res.username,
+                  },
+                },
+                {
+                  sound1: {
+                    [Op.substring]: res.username,
+                  },
+                },
+                {
+                  sound2: {
+                    [Op.substring]: res.username,
+                  },
+                },
+              ],
+              tanggal: {
+                [Op.between]: [start_date, end_date],
+              },
+            },
+          });
+          data.push({
+            name: res.username,
+            total,
+          });
+        } catch (error) {
+          console.log("error");
+        }
+      })
+    );
+    data.sort((a, b) => {
+      let fa = a.name.toLowerCase(),
+        fb = b.name.toLowerCase();
+
+      if (fa < fb) {
+        return -1;
+      }
+      if (fa > fb) {
+        return 1;
+      }
+      return 0;
+    });
+    data = data.filter((d) => d.total);
+    return responseSuccess(req, res, httpStatus.SUCCESS, "", data);
+  } catch (error) {
+    return responseError(
+      req,
+      res,
+      httpStatus.ERROR_GENERAL,
+      error.message,
+      null
+    );
+  }
+};
+
 module.exports = {
   registerCrew,
   getBankCrew,
@@ -298,4 +410,5 @@ module.exports = {
   getCrewBirthdays,
   getCrewMinistryHistory,
   getListUserAbsence,
+  getTotalMinistryCrew,
 };
