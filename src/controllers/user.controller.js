@@ -129,7 +129,7 @@ const getKeyByValue = (obj, value) =>
   Object.keys(obj).find((key) => obj[key] === value);
 
 const getCrewMinistryHistory = async (req, res) => {
-  const username = req.user.username;
+  const username = req.user.username.toLocaleLowerCase();
   try {
     const offset = +req.query.offset || 0;
     const limit = +req.query.limit || 3;
@@ -292,6 +292,24 @@ const getListUserAbsence = async (req, res) => {
   }
 };
 
+const getAllCrew = async (req, res) => {
+  try {
+    let response = await crewQueries.findAll({
+      order: [["username", "ASC"]],
+    });
+
+    return responseSuccess(req, res, httpStatus.SUCCESS, "", response);
+  } catch (error) {
+    return responseError(
+      req,
+      res,
+      httpStatus.ERROR_GENERAL,
+      error.message,
+      null
+    );
+  }
+};
+
 const getTotalMinistryCrew = async (req, res) => {
   const start_date = req.query.start_date || startDate;
   const end_date = req.query.end_date || endDate;
@@ -405,6 +423,7 @@ const getTotalMinistryCrew = async (req, res) => {
 
 module.exports = {
   registerCrew,
+  getAllCrew,
   getBankCrew,
   getCrewDetail,
   getCrewBirthdays,

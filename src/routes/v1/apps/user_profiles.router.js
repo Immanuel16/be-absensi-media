@@ -13,5 +13,6 @@ router.get(
 router.get("/ministry", userProfileController.getCrewMinistryHistory);
 router.get("/absence", userProfileController.getListUserAbsence);
 router.get("/bank-account", userProfileController.getBankCrew);
+router.get("", userProfileController.getAllCrew);
 
 module.exports = router;

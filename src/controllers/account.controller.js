@@ -6,12 +6,13 @@ const { httpStatus } = require("../variables/response.variable");
 const { base64Encrypt, base64Decrypt } = require("../utils/encryptor.util");
 const moment = require("moment");
 const { formatRupiah } = require("../utils/format.util");
+const { apiHelperCoverage } = require("../utils/axios.util");
 
 const startDate = moment().startOf("month").format("YYYY-MM-DD");
 const endDate = moment().endOf("month").format("YYYY-MM-DD");
 
 const getCrewPk = async (req, res) => {
-  const username = req.user.username;
+  const username = req.user.username.toLocaleLowerCase();
   const start_date = req.query.start_date || startDate;
   const end_date = req.query.end_date || endDate;
   try {
@@ -103,7 +104,7 @@ const getInfoAccount = async (req, res) => {
     const dataPelayanan = await getCrewPk(req, res);
 
     response.id = base64Encrypt(response.id);
-    const {
+    let {
       full_name,
       username,
       birth_date,
@@ -120,17 +121,61 @@ const getInfoAccount = async (req, res) => {
       photo,
     } = response;
 
+    let provinceName = "";
+    let cityName = "";
+    let districtName = "";
+    let subdistrictName = "";
+    /* convert province */
+    const provinces = await apiHelperCoverage.get("provinces.json");
+    provinces.data.forEach((prov) => {
+      if (base64Decrypt(province) === prov.id) {
+        provinceName = prov.name;
+      }
+    });
+
+    /* convert city */
+    const cities = await apiHelperCoverage.get(
+      `regencies/${base64Decrypt(response.province)}.json`
+    );
+    cities.data.forEach((cty) => {
+      if (base64Decrypt(city) === cty.id) {
+        cityName = cty.name;
+      }
+    });
+
+    /* convert district */
+    const districts = await apiHelperCoverage.get(
+      `districts/${base64Decrypt(response.city)}.json`
+    );
+    districts.data.forEach((dist) => {
+      if (base64Decrypt(district) === dist.id) {
+        districtName = dist.name;
+      }
+    });
+
+    /* convert district */
+    const subdistricts = await apiHelperCoverage.get(
+      `villages/${base64Decrypt(response.district)}.json`
+    );
+    subdistricts.data.forEach((sub) => {
+      if (base64Decrypt(subdistrict) === sub.id) {
+        subdistrictName = sub.name;
+      }
+    });
+
+    province = provinceName.toLocaleLowerCase();
+    city = cityName.toLocaleLowerCase();
+    district = districtName.toLocaleLowerCase();
+    subdistrict = subdistrictName.toLocaleLowerCase();
     const data = {
       full_name,
       username,
       birth_date,
       photo,
       phone: `+62 ${base64Decrypt(phone).substring(1)}`,
-      address: `${base64Decrypt(address)}, ${base64Decrypt(
-        subdistrict
-      )}, ${base64Decrypt(district)}, ${base64Decrypt(city)}, ${base64Decrypt(
-        province
-      )}`,
+      address: `${base64Decrypt(
+        address
+      )}, ${subdistrict}, ${district}, ${city}, ${province}`,
       kom,
       hmc,
       baptis,
@@ -138,6 +183,7 @@ const getInfoAccount = async (req, res) => {
       total_pelayanan: dataPelayanan.total_pelayanan,
       total_pk: dataPelayanan.total_pk,
     };
+    console.log(province);
 
     return responseSuccess(req, res, httpStatus.SUCCESS, "", data);
   } catch (error) {

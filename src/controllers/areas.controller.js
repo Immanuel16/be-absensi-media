@@ -1,5 +1,5 @@
 const { apiHelperCoverage } = require("../utils/axios.util");
-const { responseSuccess } = require("../utils/response.util");
+const { responseSuccess, responseError } = require("../utils/response.util");
 const { httpStatus } = require("../variables/response.variable");
 
 const getListProvince = async (req, res) => {
