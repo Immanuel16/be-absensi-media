@@ -146,9 +146,11 @@ const getDetailAbsen = async (req, res) => {
   try {
     const id = base64Decrypt(req.params.id);
 
-    const response = await absensiQueries.findOne({ where: { id } });
+    let response = await absensiQueries.findOne({ where: { id } });
 
     response.id = base64Encrypt(response.id);
+
+    response = convertEmptyString(response);
 
     return responseSuccess(
       req,
@@ -242,6 +244,9 @@ const deleteAbsen = async (req, res) => {
     );
   }
 };
+
+const convertEmptyString = (obj) =>
+  Object.keys(obj).forEach((k) => (obj[k] = obj[k] === "" ? null : obj[k]));
 
 module.exports = {
   getListAbsen,
