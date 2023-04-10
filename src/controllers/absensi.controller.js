@@ -151,8 +151,8 @@ const getDetailAbsen = async (req, res) => {
     response.id = base64Encrypt(response.id);
 
     for (const key in response) {
-      if (obj[key] === "") {
-        obj[key] = null;
+      if (response[key] === "") {
+        response[key] = null;
       }
     }
 
