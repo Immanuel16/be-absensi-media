@@ -72,8 +72,8 @@ const registerCrew = async (req, res) => {
 
 const getCrewDetail = async (req, res) => {
   try {
-    const { id } = req.user;
-    // const id = base64Decrypt(req.user.id);
+    // const { id } = req.user;
+    const id = base64Decrypt(req.params.id);
 
     const response = await crewQueries.findOne({
       where: { id },
