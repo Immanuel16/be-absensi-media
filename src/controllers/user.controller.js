@@ -294,11 +294,29 @@ const getListUserAbsence = async (req, res) => {
 
 const getAllCrew = async (req, res) => {
   try {
-    let response = await crewQueries.findAll({
+    const offset = +req.query.offset || 0;
+    const limit = +req.query.limit || 6;
+    let response = await crewQueries.findAndCountAll({
       order: [["username", "ASC"]],
+      offset,
+      limit,
     });
 
-    return responseSuccess(req, res, httpStatus.SUCCESS, "", response);
+    const { rows, count } = response;
+
+    if (rows.length > 0) {
+      rows.forEach((crew, i) => {
+        rows[i].id = base64Encrypt(crew.id);
+      });
+    }
+
+    const data = {
+      count,
+      rows: rows.length,
+      crew: rows,
+    };
+
+    return responseSuccess(req, res, httpStatus.SUCCESS, "", data);
   } catch (error) {
     return responseError(
       req,
