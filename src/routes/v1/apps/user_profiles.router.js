@@ -4,7 +4,7 @@ const userProfileMiddleware = require("../../../middlewares/user.middlewares");
 
 const router = express.Router();
 
-router.get("/detail", userProfileController.getCrewDetail);
+router.get("/:id/detail", userProfileController.getCrewDetail);
 router.get("/birthdays", userProfileController.getCrewBirthdays);
 router.get(
   "/total-ministry-report",
