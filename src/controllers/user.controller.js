@@ -151,6 +151,7 @@ const getCrewDetail = async (req, res) => {
       username,
       birth_date,
       photo,
+      phone: `+62 ${base64Decrypt(phone).substring(1)}`,
       address: `${base64Decrypt(
         address
       )}, ${subdistrict}, ${district}, ${city}, ${province}`,
