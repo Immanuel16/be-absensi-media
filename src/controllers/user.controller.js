@@ -79,9 +79,87 @@ const getCrewDetail = async (req, res) => {
       where: { id },
     });
 
+    let {
+      full_name,
+      username,
+      birth_date,
+      phone,
+      province,
+      city,
+      district,
+      subdistrict,
+      address,
+      kom,
+      hmc,
+      baptis,
+      orientasi,
+      photo,
+    } = response;
+
+    let provinceName = "";
+    let cityName = "";
+    let districtName = "";
+    let subdistrictName = "";
+    /* convert province */
+    const provinces = await apiHelperCoverage.get("provinces.json");
+    provinces.data.forEach((prov) => {
+      if (base64Decrypt(province) === prov.id) {
+        provinceName = prov.name;
+      }
+    });
+
+    /* convert city */
+    const cities = await apiHelperCoverage.get(
+      `regencies/${base64Decrypt(response.province)}.json`
+    );
+    cities.data.forEach((cty) => {
+      if (base64Decrypt(city) === cty.id) {
+        cityName = cty.name;
+      }
+    });
+
+    /* convert district */
+    const districts = await apiHelperCoverage.get(
+      `districts/${base64Decrypt(response.city)}.json`
+    );
+    districts.data.forEach((dist) => {
+      if (base64Decrypt(district) === dist.id) {
+        districtName = dist.name;
+      }
+    });
+
+    /* convert district */
+    const subdistricts = await apiHelperCoverage.get(
+      `villages/${base64Decrypt(response.district)}.json`
+    );
+    subdistricts.data.forEach((sub) => {
+      if (base64Decrypt(subdistrict) === sub.id) {
+        subdistrictName = sub.name;
+      }
+    });
+
+    province = provinceName.toLocaleLowerCase();
+    city = cityName.toLocaleLowerCase();
+    district = districtName.toLocaleLowerCase();
+    subdistrict = subdistrictName.toLocaleLowerCase();
+
     response.id = base64Encrypt(response.id);
 
-    return responseSuccess(req, res, httpStatus.SUCCESS, "", response);
+    const data = {
+      full_name,
+      username,
+      birth_date,
+      photo,
+      address: `${base64Decrypt(
+        address
+      )}, ${subdistrict}, ${district}, ${city}, ${province}`,
+      kom,
+      hmc,
+      baptis,
+      orientasi,
+    };
+
+    return responseSuccess(req, res, httpStatus.SUCCESS, "", data);
   } catch (error) {
     return responseError(
       req,

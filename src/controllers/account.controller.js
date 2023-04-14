@@ -183,7 +183,6 @@ const getInfoAccount = async (req, res) => {
       total_pelayanan: dataPelayanan.total_pelayanan,
       total_pk: dataPelayanan.total_pk,
     };
-    console.log(province);
 
     return responseSuccess(req, res, httpStatus.SUCCESS, "", data);
   } catch (error) {
