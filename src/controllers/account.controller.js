@@ -121,6 +121,7 @@ const getInfoAccount = async (req, res) => {
       photo,
       bank_acc_num,
       bank_acc_name,
+      bank_id,
     } = response;
 
     let provinceName = "";
@@ -186,6 +187,7 @@ const getInfoAccount = async (req, res) => {
       total_pk: dataPelayanan.total_pk,
       bank_acc_num,
       bank_acc_name,
+      bank_id,
     };
 
     return responseSuccess(req, res, httpStatus.SUCCESS, "", data);
