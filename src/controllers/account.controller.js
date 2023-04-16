@@ -185,7 +185,7 @@ const getInfoAccount = async (req, res) => {
       orientasi,
       total_pelayanan: dataPelayanan.total_pelayanan,
       total_pk: dataPelayanan.total_pk,
-      bank_acc_num,
+      bank_acc_num: base64Decrypt(bank_acc_num),
       bank_acc_name,
       bank_id,
     };
