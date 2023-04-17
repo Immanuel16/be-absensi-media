@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.get("/total-pk", accountController.getCrewPk);
 router.get("/", accountController.getInfoAccount);
-router.put("/edit/:id/bank-account", accountController.updateBankCrew);
+router.put("/edit/bank-account", accountController.updateBankCrew);
 
 module.exports = router;

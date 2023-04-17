@@ -208,7 +208,7 @@ const getInfoAccount = async (req, res) => {
 
 const updateBankCrew = async (req, res) => {
   try {
-    const id = base64Decrypt(req.params.id);
+    const id = req.user.id;
     const data = {
       ...updateBankCrewPayload(req.body, req.user.username),
     };
