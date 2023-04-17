@@ -1,5 +1,5 @@
 const { QueryTypes } = require("sequelize");
-const { absens, sequelize } = require("../models");
+const { absens, sequelize, user_profiles } = require("../models");
 
 /* count total each crew in absensi */
 const count = (params) => absens.count(params);
@@ -12,4 +12,7 @@ const findBankCrew = (bank_code) => {
   });
 };
 
-module.exports = { count, findBankCrew };
+const updateBankCrew = (data, id) =>
+  user_profiles.update(data, { where: { id } });
+
+module.exports = { count, findBankCrew, updateBankCrew };

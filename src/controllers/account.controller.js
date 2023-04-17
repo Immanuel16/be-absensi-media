@@ -7,6 +7,7 @@ const { base64Encrypt, base64Decrypt } = require("../utils/encryptor.util");
 const moment = require("moment");
 const { formatRupiah } = require("../utils/format.util");
 const { apiHelperCoverage } = require("../utils/axios.util");
+const { updateBankCrewPayload } = require("../payloads/user_profiles.payload");
 
 const startDate = moment().startOf("month").format("YYYY-MM-DD");
 const endDate = moment().endOf("month").format("YYYY-MM-DD");
@@ -205,4 +206,31 @@ const getInfoAccount = async (req, res) => {
   }
 };
 
-module.exports = { getCrewPk, getInfoAccount };
+const updateBankCrew = async (req, res) => {
+  try {
+    const id = base64Decrypt(req.params.id);
+    const data = {
+      ...updateBankCrewPayload(req.body, req.user.username),
+    };
+
+    await accountQueries.updateBankCrew(data, id);
+
+    return responseSuccess(
+      req,
+      res,
+      httpStatus.SUCCESS,
+      "Update Bank Crew Success",
+      null
+    );
+  } catch (error) {
+    return responseError(
+      req,
+      res,
+      httpStatus.ERROR_GENERAL,
+      error.message,
+      null
+    );
+  }
+};
+
+module.exports = { getCrewPk, getInfoAccount, updateBankCrew };
