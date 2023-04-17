@@ -190,7 +190,7 @@ const getInfoAccount = async (req, res) => {
       bank_acc_num: base64Decrypt(bank_acc_num),
       bank_acc_name,
       bank_id,
-      bank_name,
+      bank_name: bank_name[0].bank_name,
     };
 
     return responseSuccess(req, res, httpStatus.SUCCESS, "", data);
