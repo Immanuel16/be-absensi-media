@@ -209,9 +209,10 @@ const getInfoAccount = async (req, res) => {
 const updateBankCrew = async (req, res) => {
   try {
     const id = req.user.id;
-    const data = {
+    let data = {
       ...updateBankCrewPayload(req.body, req.user.username),
     };
+    data.bank_acc_num = base64Encrypt(data.bank_acc_num);
 
     await accountQueries.updateBankCrew(data, id);
 
