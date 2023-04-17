@@ -124,6 +124,8 @@ const getInfoAccount = async (req, res) => {
       bank_id,
     } = response;
 
+    const bank_name = await accountQueries.findBankCrew(bank_id);
+
     let provinceName = "";
     let cityName = "";
     let districtName = "";
@@ -188,6 +190,7 @@ const getInfoAccount = async (req, res) => {
       bank_acc_num: base64Decrypt(bank_acc_num),
       bank_acc_name,
       bank_id,
+      bank_name,
     };
 
     return responseSuccess(req, res, httpStatus.SUCCESS, "", data);
