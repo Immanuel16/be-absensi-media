@@ -6,6 +6,7 @@ const scheduleShootingController = require("../../../controllers/schedule_shooti
 const router = express.Router();
 
 router.get("/ministries-schedule", generalController.getListScheduleMinistries);
+router.get("/ministries-division", generalController.getListDivision);
 
 router.post("/recruitment/add", recruitmenController.createNewCandidate);
 

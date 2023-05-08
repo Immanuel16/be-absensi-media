@@ -1,6 +1,7 @@
 const { httpStatus } = require("../variables/response.variable");
 const generalQueries = require("../queries/general.query");
 const { responseSuccess, responseError } = require("../utils/response.util");
+const { response } = require("express");
 
 const getListScheduleMinistries = async (req, res) => {
   try {
@@ -19,4 +20,21 @@ const getListScheduleMinistries = async (req, res) => {
   }
 };
 
-module.exports = { getListScheduleMinistries };
+const getListDivision = async (req, res) => {
+  try {
+    const response = await generalQueries.getAllDivision({
+      order: [["division_name", "ASC"]],
+    });
+    return responseSuccess(req, res, httpStatus.SUCCESS, "", response);
+  } catch (error) {
+    return responseError(
+      req,
+      res,
+      httpStatus.ERROR_GENERAL,
+      error.message,
+      null
+    );
+  }
+};
+
+module.exports = { getListDivision, getListScheduleMinistries };
