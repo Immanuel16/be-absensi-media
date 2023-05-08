@@ -14,4 +14,6 @@ router.post(
   scheduleShootingController.createScheduleShooting
 );
 
+router.get("/shooting/list", scheduleShootingController.getListSchedule);
+
 module.exports = router;
