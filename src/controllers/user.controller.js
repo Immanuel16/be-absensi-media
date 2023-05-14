@@ -177,7 +177,7 @@ const getCrewBirthdays = async (req, res) => {
   try {
     const name = `%${req.query.name}%` || "%";
 
-    const response = req.query.name
+    let response = req.query.name
       ? await crewQueries.findCrewBirthdays({
           where: {
             full_name: {
@@ -186,6 +186,8 @@ const getCrewBirthdays = async (req, res) => {
           },
         })
       : await crewQueries.findCrewBirthdays();
+
+    response = response.filter((respon) => respon.username !== "nuel");
 
     return responseSuccess(
       req,
@@ -385,13 +387,15 @@ const getAllCrew = async (req, res) => {
       limit,
     });
 
-    const { rows, count } = response;
+    let { rows, count } = response;
 
     if (rows.length > 0) {
       rows.forEach((crew, i) => {
         rows[i].id = base64Encrypt(crew.id);
       });
     }
+
+    rows = rows.filter((row) => row.username !== "nuel");
 
     const data = {
       count,
