@@ -2,6 +2,7 @@ const express = require("express");
 const generalController = require("../../../controllers/general.controller");
 const recruitmenController = require("../../../controllers/recruitment.controller");
 const scheduleShootingController = require("../../../controllers/schedule_shooting.controller");
+const rsvpRetreatController = require("../../../controllers/rsvp.controller");
 
 const router = express.Router();
 
@@ -16,5 +17,10 @@ router.post(
 );
 
 router.get("/shooting/list", scheduleShootingController.getListSchedule);
+
+/* retreat */
+router.post("/retreat/add", rsvpRetreatController.createScheduleShooting);
+
+router.get("/retreat/list", rsvpRetreatController.getListSchedule);
 
 module.exports = router;
