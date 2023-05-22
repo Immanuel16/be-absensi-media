@@ -23,7 +23,7 @@ const getListRetreat = async (req, res) => {
 const createAvailRetreat = async (req, res) => {
   try {
     const data = {
-      ...createScheduleShootingPayload(req.body),
+      ...createRsvpPayload(req.body),
     };
 
     await rsvpQueries.create(data);
