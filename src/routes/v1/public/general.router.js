@@ -19,8 +19,8 @@ router.post(
 router.get("/shooting/list", scheduleShootingController.getListSchedule);
 
 /* retreat */
-router.post("/retreat/add", rsvpRetreatController.createScheduleShooting);
+router.post("/retreat/add", rsvpRetreatController.createAvailRetreat);
 
-router.get("/retreat/list", rsvpRetreatController.getListSchedule);
+router.get("/retreat/list", rsvpRetreatController.getListRetreat);
 
 module.exports = router;
