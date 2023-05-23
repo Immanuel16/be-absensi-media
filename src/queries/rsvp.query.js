@@ -1,9 +1,12 @@
 const { rsvp } = require("../models");
 
-/* add request shooting */
+/* add gathering */
 const create = (data) => rsvp.create(data);
 
-/* get all schedule */
+/* get all crew gathering */
 const findAll = (params) => rsvp.findAll(params);
 
-module.exports = { create, findAll };
+/* get all crew gathering */
+const findOne = (params) => rsvp.findOne(params);
+
+module.exports = { create, findAll, findOne };

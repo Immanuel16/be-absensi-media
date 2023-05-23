@@ -25,6 +25,21 @@ const createAvailRetreat = async (req, res) => {
     const data = {
       ...createRsvpPayload(req.body),
     };
+    const { name } = req.body;
+
+    const filteredUser = await rsvpQueries.findOne({
+      where: { name },
+    });
+
+    if (filteredUser.name) {
+      return responseError(
+        req,
+        res,
+        httpStatus.ERROR_GENERAL,
+        "Maaf anda hanya bisa mengisi satu kali",
+        null
+      );
+    }
 
     await rsvpQueries.create(data);
 
