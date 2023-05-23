@@ -6,7 +6,7 @@ const { createRsvpPayload } = require("../payloads/rsvp.payload");
 const getListRetreat = async (req, res) => {
   try {
     const response = await rsvpQueries.findAll({
-      order: [["name", "DESC"]],
+      order: [["name", "ASC"]],
     });
     return responseSuccess(req, res, httpStatus.SUCCESS, "", response);
   } catch (error) {
