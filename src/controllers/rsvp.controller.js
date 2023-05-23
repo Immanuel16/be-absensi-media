@@ -31,7 +31,7 @@ const createAvailRetreat = async (req, res) => {
       where: { name },
     });
 
-    if (filteredUser.name) {
+    if (filteredUser) {
       return responseError(
         req,
         res,
