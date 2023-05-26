@@ -15,7 +15,7 @@ const endDate = moment().endOf("year").format("YYYY-MM-DD");
 const getListHistoryCash = async (req, res) => {
   try {
     const offset = +req.query.offset || 0;
-    const limit = +req.query.limit || 5;
+    const limit = +req.query.limit || 4;
     const start_date = req.query.start_date || startDate;
     const end_date = req.query.end_date || endDate;
 
@@ -41,7 +41,7 @@ const getListHistoryCash = async (req, res) => {
       count,
       rows: rows.length,
       history_cash: rows,
-      total_cash: await getTotalCash()
+      total_cash: await getTotalCash(),
     };
 
     return responseSuccess(
@@ -62,8 +62,7 @@ const getListHistoryCash = async (req, res) => {
   }
 };
 
-const sumTotal = arr =>
-  arr.reduce((sum, { totals }) => sum + totals, 0)
+const sumTotal = (arr) => arr.reduce((sum, { totals }) => sum + totals, 0);
 
 const getTotalCash = async (req, res) => {
   try {
@@ -71,9 +70,15 @@ const getTotalCash = async (req, res) => {
     const totalCash = sumTotal(response);
     return totalCash;
   } catch (error) {
-    return responseError(req, res, httpStatus.ERROR_GENERAL, error.message, null);
+    return responseError(
+      req,
+      res,
+      httpStatus.ERROR_GENERAL,
+      error.message,
+      null
+    );
   }
-}
+};
 
 const createHistoryCash = async (req, res) => {
   try {
@@ -108,14 +113,26 @@ const deleteHistoryCash = async (req, res) => {
   try {
     await historyCashQueries.destroy({
       where: {
-        id
-      }
+        id,
+      },
     });
 
-    return responseSuccess(req, res, httpStatus.SUCCESS, "Delete history success", null);
+    return responseSuccess(
+      req,
+      res,
+      httpStatus.SUCCESS,
+      "Delete history success",
+      null
+    );
   } catch (error) {
-    return responseError(req, res, httpStatus.ERROR_GENERAL, error.message, null);
+    return responseError(
+      req,
+      res,
+      httpStatus.ERROR_GENERAL,
+      error.message,
+      null
+    );
   }
-}
+};
 
 module.exports = { createHistoryCash, getListHistoryCash, deleteHistoryCash };
