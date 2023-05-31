@@ -3,8 +3,10 @@ const historyCashController = require("../../../controllers/riwayat_kas.controll
 
 const router = express.Router();
 
-router.get('/', historyCashController.getListHistoryCash);
-router.post('/create', historyCashController.createHistoryCash);
-router.delete('/:id/delete', historyCashController.deleteHistoryCash);
+router.get("/", historyCashController.getListHistoryCash);
+router.post("/create", historyCashController.createHistoryCash);
+router.delete("/:id/delete", historyCashController.deleteHistoryCash);
+router.put("/:id/edit", historyCashController.updateHistoryCash);
+router.get("/:id/detail", historyCashController.getHistoryCashDetail);
 
 module.exports = router;

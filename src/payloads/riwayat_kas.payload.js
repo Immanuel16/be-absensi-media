@@ -1,4 +1,4 @@
-const {v4} = require("uuid");
+const { v4 } = require("uuid");
 const moment = require("moment");
 
 const createHistoryCashPayload = (params) => ({
@@ -9,8 +9,8 @@ const createHistoryCashPayload = (params) => ({
   price: params.price,
   totals: 0,
   type: params.type,
+  attachment: params.attachment,
   createdAt: moment().toISOString(),
-  updatedAt: moment().toISOString()
 });
 
 const updateHistoryCashPayload = (params) => ({
@@ -20,8 +20,8 @@ const updateHistoryCashPayload = (params) => ({
   price: params.price,
   totals: 0,
   type: params.type,
-  updatedAt: moment().toISOString()
+  attachment: params.attachment,
+  updatedAt: moment().toISOString(),
 });
-
 
 module.exports = { createHistoryCashPayload, updateHistoryCashPayload };

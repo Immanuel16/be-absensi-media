@@ -135,4 +135,53 @@ const deleteHistoryCash = async (req, res) => {
   }
 };
 
-module.exports = { createHistoryCash, getListHistoryCash, deleteHistoryCash };
+const getHistoryCashDetail = async (req, res) => {
+  try {
+    const id = base64Decrypt(req.params.id);
+    const data = await historyCashQueries.findOne({ where: { id } });
+    return responseSuccess(req, res, httpStatus.SUCCESS, "", data);
+  } catch (error) {
+    return responseError(
+      req,
+      res,
+      httpStatus.ERROR_GENERAL,
+      error.message,
+      null
+    );
+  }
+};
+
+const updateHistoryCash = async (req, res) => {
+  try {
+    const id = base64Decrypt(req.params.id);
+    const data = {
+      ...updateHistoryCashPayload(req.body),
+    };
+
+    await historyCashQueries.updateById(data, id);
+
+    return responseSuccess(
+      req,
+      res,
+      httpStatus.SUCCESS,
+      "Update Cash Success",
+      null
+    );
+  } catch (error) {
+    return responseError(
+      req,
+      res,
+      httpStatus.ERROR_GENERAL,
+      error.message,
+      null
+    );
+  }
+};
+
+module.exports = {
+  createHistoryCash,
+  getListHistoryCash,
+  deleteHistoryCash,
+  getHistoryCashDetail,
+  updateHistoryCash,
+};
