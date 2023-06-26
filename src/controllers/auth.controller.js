@@ -5,6 +5,7 @@ const crewQueries = require("../queries/user_profiles.query");
 const { base64Decrypt, base64Encrypt } = require("../utils/encryptor.util");
 const { responseError, responseSuccess } = require("../utils/response.util");
 const { httpStatus } = require("../variables/response.variable");
+const { Op } = require("sequelize");
 
 exports.authUser = async (req, res) => {
   try {
@@ -12,8 +13,14 @@ exports.authUser = async (req, res) => {
     // username = base64Encrypt(username);
     const user = await crewQueries.authUser({
       where: {
-        username: username.toLowerCase(),
-        email: base64Encrypt(username),
+        [Op.or]: [
+          {
+            username: username.toLowerCase(),
+          },
+          {
+            email: base64Encrypt(username),
+          },
+        ],
         status: 1,
       },
     });
