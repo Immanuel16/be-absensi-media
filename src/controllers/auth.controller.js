@@ -3,18 +3,17 @@ const jwt = require("jsonwebtoken");
 const config = require("../configs/env.config");
 const crewQueries = require("../queries/user_profiles.query");
 const { base64Decrypt, base64Encrypt } = require("../utils/encryptor.util");
-const {responseError, responseSuccess} = require("../utils/response.util");
-const {httpStatus} = require("../variables/response.variable");
+const { responseError, responseSuccess } = require("../utils/response.util");
+const { httpStatus } = require("../variables/response.variable");
 
-
-exports.authUser =  async (req, res) => {
+exports.authUser = async (req, res) => {
   try {
     let { username, password } = req.body;
     // username = base64Encrypt(username);
-
     const user = await crewQueries.authUser({
       where: {
-        username,
+        username: username.toLowerCase(),
+        email: username,
         status: 1,
       },
     });
@@ -24,7 +23,7 @@ exports.authUser =  async (req, res) => {
     const plainPassword = base64Decrypt(password);
 
     const isPassValid = bcryptjs.compareSync(plainPassword, user.password);
-    console.log(isPassValid)
+    console.log(isPassValid);
 
     if (!isPassValid) throw new Error("Password doesn't match");
 
@@ -53,4 +52,4 @@ exports.authUser =  async (req, res) => {
   } catch (err) {
     return responseError(req, res, httpStatus.ERROR_GENERAL, err.message, null);
   }
-}
+};
