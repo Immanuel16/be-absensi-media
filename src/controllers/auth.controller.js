@@ -13,7 +13,7 @@ exports.authUser = async (req, res) => {
     const user = await crewQueries.authUser({
       where: {
         username: username.toLowerCase(),
-        email: username,
+        email: base64Encrypt(username),
         status: 1,
       },
     });
