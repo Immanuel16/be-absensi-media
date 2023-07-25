@@ -12,7 +12,9 @@
     "migrate": "npx sequelize-cli db:migrate",
     "migrate:undo": "npx sequelize-cli db:migrate:undo",
     "seeder": "npx sequelize-cli db:seed:all",
-    "seeder:undo": "npx sequelize-cli db:seed:undo:all"
+    "seeder:undo": "npx sequelize-cli db:seed:undo:all",
+    "build-server": "babel -d ./dist ./src -s",
+    "prod": "npm run build-server && npx pm2 start ecosystem.config.js"
   },
   "author": "nuel",
   "license": "ISC",
@@ -39,6 +41,7 @@
     "nodemon": "^2.0.20",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
+    "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "pdfkit-table": "^0.1.99",
     "sequelize": "^6.28.0",
