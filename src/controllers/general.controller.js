@@ -20,6 +20,36 @@ const getListScheduleMinistries = async (req, res) => {
   }
 };
 
+/* sapaan gembala */
+const getPastorGreetings = async (req, res) => {
+  try {
+    const response = await generalQueries.getPastorGreetings();
+    return responseSuccess(req, res, httpStatus.SUCCESS, "", response);
+  } catch (error) {
+    return responseError(
+      req,
+      res,
+      httpStatus.ERROR_GENERAL,
+      error.message,
+      null
+    );
+  }
+};
+
+const updatePastorGreetings = async (req, res) => {
+  try {
+    const data = {};
+  } catch (error) {
+    return responseError(
+      req,
+      res,
+      httpStatus.ERROR_GENERAL,
+      error.message,
+      null
+    );
+  }
+};
+
 const getListDivision = async (req, res) => {
   try {
     const response = await generalQueries.getAllDivision({
@@ -37,4 +67,8 @@ const getListDivision = async (req, res) => {
   }
 };
 
-module.exports = { getListDivision, getListScheduleMinistries };
+module.exports = {
+  getListDivision,
+  getListScheduleMinistries,
+  getPastorGreetings,
+};
