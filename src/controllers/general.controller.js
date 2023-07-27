@@ -2,6 +2,9 @@ const { httpStatus } = require("../variables/response.variable");
 const generalQueries = require("../queries/general.query");
 const { responseSuccess, responseError } = require("../utils/response.util");
 const { response } = require("express");
+const {
+  updatePastorGreetingsPayload,
+} = require("../payloads/pastor_greetings.payload");
 
 const getListScheduleMinistries = async (req, res) => {
   try {
@@ -38,7 +41,19 @@ const getPastorGreetings = async (req, res) => {
 
 const updatePastorGreetings = async (req, res) => {
   try {
-    const data = {};
+    const data = {
+      ...updatePastorGreetingsPayload(req.body, req.user.username),
+    };
+
+    await generalQueries.updatePastorGreetings(data, 1);
+
+    return responseSuccess(
+      req,
+      res,
+      httpStatus.SUCCESS,
+      "Update Data Success",
+      null
+    );
   } catch (error) {
     return responseError(
       req,
@@ -71,4 +86,5 @@ module.exports = {
   getListDivision,
   getListScheduleMinistries,
   getPastorGreetings,
+  updatePastorGreetings,
 };
