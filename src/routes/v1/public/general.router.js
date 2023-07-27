@@ -9,6 +9,7 @@ const router = express.Router();
 
 router.get("/ministries-schedule", generalController.getListScheduleMinistries);
 router.get("/ministries-division", generalController.getListDivision);
+router.get("/sapaan-gembala", generalController.getPastorGreetings);
 
 router.post("/recruitment/add", recruitmenController.createNewCandidate);
 
