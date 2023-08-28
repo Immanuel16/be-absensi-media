@@ -4,6 +4,7 @@ const recruitmenController = require("../../../controllers/recruitment.controlle
 const scheduleShootingController = require("../../../controllers/schedule_shooting.controller");
 const rsvpRetreatController = require("../../../controllers/rsvp.controller");
 const userController = require("../../../controllers/user.controller");
+const historyCashController = require("../../../controllers/riwayat_kas.controller");
 
 const router = express.Router();
 
@@ -20,6 +21,8 @@ router.post(
 );
 
 router.get("/shooting/list", scheduleShootingController.getListSchedule);
+
+router.get("/cash", historyCashController.getAllHistoryCash);
 
 /* retreat */
 router.post("/retreat/add", rsvpRetreatController.createAvailRetreat);
