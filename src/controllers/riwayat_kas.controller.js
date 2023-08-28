@@ -68,6 +68,12 @@ const getAllHistoryCash = async (req, res) => {
       order: [["tanggal", "ASC"]],
     });
 
+    if (response.length > 0) {
+      response.forEach((cash, i) => {
+        response[i].id = base64Encrypt(cash.id);
+      });
+    }
+
     return responseSuccess(
       req,
       res,
