@@ -4,6 +4,7 @@ const historyCashController = require("../../../controllers/riwayat_kas.controll
 const router = express.Router();
 
 router.get("/", historyCashController.getListHistoryCash);
+router.get("/list", historyCashController.getAllHistoryCash);
 router.post("/create", historyCashController.createHistoryCash);
 router.delete("/:id/delete", historyCashController.deleteHistoryCash);
 router.put("/:id/edit", historyCashController.updateHistoryCash);

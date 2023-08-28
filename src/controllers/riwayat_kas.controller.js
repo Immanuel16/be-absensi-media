@@ -62,6 +62,28 @@ const getListHistoryCash = async (req, res) => {
   }
 };
 
+const getAllHistoryCash = async (req, res) => {
+  try {
+    const response = await historyCashQueries.findAll();
+
+    return responseSuccess(
+      req,
+      res,
+      httpStatus.SUCCESS,
+      "Get all history cash",
+      response
+    );
+  } catch (error) {
+    return responseError(
+      req,
+      res,
+      httpStatus.ERROR_GENERAL,
+      error.message,
+      null
+    );
+  }
+};
+
 const sumTotal = (arr) => arr.reduce((sum, { totals }) => sum + totals, 0);
 
 const getTotalCash = async (req, res) => {
@@ -181,6 +203,7 @@ const updateHistoryCash = async (req, res) => {
 module.exports = {
   createHistoryCash,
   getListHistoryCash,
+  getAllHistoryCash,
   deleteHistoryCash,
   getHistoryCashDetail,
   updateHistoryCash,
