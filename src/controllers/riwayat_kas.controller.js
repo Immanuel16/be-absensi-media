@@ -64,7 +64,9 @@ const getListHistoryCash = async (req, res) => {
 
 const getAllHistoryCash = async (req, res) => {
   try {
-    const response = await historyCashQueries.findAll();
+    const response = await historyCashQueries.findAll({
+      order: [["tanggal", "ASC"]],
+    });
 
     return responseSuccess(
       req,
