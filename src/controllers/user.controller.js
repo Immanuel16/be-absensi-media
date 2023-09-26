@@ -477,6 +477,11 @@ const getTotalMinistryCrew = async (req, res) => {
                   },
                 },
                 {
+                  sosmed: {
+                    [Op.substring]: res.username,
+                  },
+                },
+                {
                   sound1: {
                     [Op.substring]: res.username,
                   },
