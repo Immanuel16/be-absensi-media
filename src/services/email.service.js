@@ -59,7 +59,7 @@ const sendMailChangePassword = async (payload, res) => {
   };
   transporter.sendMail(mailOptions, function (err) {
     if (err) {
-      console.log(err);
+      return responseError(req, res, httpStatus.ERROR_GENERAL, err, null);
     } else {
       console.log("success");
     }
