@@ -1,3 +1,4 @@
+const { isEmpty } = require("lodash");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("../configs/env.config");
@@ -63,22 +64,38 @@ const authUser = async (req, res) => {
 
 const forgotPassword = async (req, res) => {
   try {
-    let { username, password } = req.body;
+    let { email, password } = req.body;
     // username = base64Encrypt(username);
     const user = await crewQueries.authUser({
       where: {
-        email: base64Encrypt(username),
+        email: base64Encrypt(email),
         status: 1,
       },
     });
 
+    if (isEmpty(user)) throw new Error("Akun email anda belum terdaftar");
+
     const data = {
-      username: user.username,
+      password: bcryptjs.hashSync(base64Decrypt(password), 10),
     };
 
-    return responseSuccess(req, res, httpStatus.SUCCESS, "", data);
+    await crewQueries.changePassword(data, base64Encrypt(email));
+
+    return responseSuccess(
+      req,
+      res,
+      httpStatus.SUCCESS,
+      "Change Password Success",
+      null
+    );
   } catch (error) {
-    return responseError(req, res, httpStatus.ERROR_GENERAL, err.message, null);
+    return responseError(
+      req,
+      res,
+      httpStatus.ERROR_GENERAL,
+      error.message,
+      null
+    );
   }
 };
 

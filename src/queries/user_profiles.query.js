@@ -17,6 +17,9 @@ const create = (data) => user_profiles.create(data);
 
 const updateById = (data, id) => user_profiles.update(data, { where: { id } });
 
+const changePassword = (data, email) =>
+  user_profiles.update(data, { where: { email } });
+
 const findCrewBirthdays = (params) => {
   return user_profiles.scope("forBirthday").findAll(params);
 };
@@ -36,6 +39,7 @@ const findCrewBank = () => {
 module.exports = {
   authUser,
   create,
+  changePassword,
   findAll,
   findAllUserAbsence,
   findAndCountAll,
