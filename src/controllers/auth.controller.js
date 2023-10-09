@@ -7,7 +7,7 @@ const { responseError, responseSuccess } = require("../utils/response.util");
 const { httpStatus } = require("../variables/response.variable");
 const { Op } = require("sequelize");
 
-exports.authUser = async (req, res) => {
+const authUser = async (req, res) => {
   try {
     let { username, password } = req.body;
     // username = base64Encrypt(username);
@@ -60,3 +60,26 @@ exports.authUser = async (req, res) => {
     return responseError(req, res, httpStatus.ERROR_GENERAL, err.message, null);
   }
 };
+
+const forgotPassword = async (req, res) => {
+  try {
+    let { username, password } = req.body;
+    // username = base64Encrypt(username);
+    const user = await crewQueries.authUser({
+      where: {
+        email: base64Encrypt(username),
+        status: 1,
+      },
+    });
+
+    const data = {
+      username: user.username,
+    };
+
+    return responseSuccess(req, res, httpStatus.SUCCESS, "", data);
+  } catch (error) {
+    return responseError(req, res, httpStatus.ERROR_GENERAL, err.message, null);
+  }
+};
+
+module.exports = { authUser, forgotPassword };
