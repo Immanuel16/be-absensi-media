@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 
 const config = {
   app: {
@@ -16,17 +16,17 @@ const config = {
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     return: process.env.DB_RETURN,
-    dialect: 'mysql'
+    dialect: "mysql",
   },
   email: {
     host: process.env.EMAIL_HOST,
     auth: {
       user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
+      pass: process.env.EMAIL_PASS,
     },
-    port: 465,
-    secure: true
-  }
+    port: 587,
+    secure: true,
+  },
 };
 
 module.exports = config;

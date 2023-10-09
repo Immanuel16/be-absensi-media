@@ -85,7 +85,7 @@ const changePassword = async (req, res) => {
       email,
     };
 
-    // await crewQueries.changePassword(data, base64Encrypt(email));
+    await crewQueries.changePassword(data, base64Encrypt(email));
 
     await sendMailChangePassword(payloadEmail);
 
