@@ -7,6 +7,7 @@ const { base64Decrypt, base64Encrypt } = require("../utils/encryptor.util");
 const { responseError, responseSuccess } = require("../utils/response.util");
 const { httpStatus } = require("../variables/response.variable");
 const { Op } = require("sequelize");
+const { sendMailChangePassword } = require("../services/email.service");
 
 const authUser = async (req, res) => {
   try {
@@ -62,10 +63,9 @@ const authUser = async (req, res) => {
   }
 };
 
-const forgotPassword = async (req, res) => {
+const changePassword = async (req, res) => {
   try {
     let { email, password } = req.body;
-    // username = base64Encrypt(username);
     const user = await crewQueries.authUser({
       where: {
         email: base64Encrypt(email),
@@ -79,7 +79,14 @@ const forgotPassword = async (req, res) => {
       password: bcryptjs.hashSync(base64Decrypt(password), 10),
     };
 
+    const payloadEmail = {
+      password: base64Decrypt(password),
+      full_name: user.full_name,
+    };
+
     await crewQueries.changePassword(data, base64Encrypt(email));
+
+    await sendMailChangePassword(payloadEmail);
 
     return responseSuccess(
       req,
@@ -99,4 +106,4 @@ const forgotPassword = async (req, res) => {
   }
 };
 
-module.exports = { authUser, forgotPassword };
+module.exports = { authUser, changePassword };

@@ -5,7 +5,7 @@ const middleware = require("../../../middlewares/auth.middlewares");
 const router = express.Router();
 
 router.post("/login", middleware.authUser, controller.authUser);
-router.post("/forgot-password", controller.forgotPassword);
+router.put("/forgot-password", controller.changePassword);
 // router.post('/loginTest', controller.authUserTest);
 
 module.exports = router;

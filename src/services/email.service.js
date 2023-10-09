@@ -36,6 +36,36 @@ const sendMailRegister = async (payload, res) => {
   });
 };
 
+const sendMailChangePassword = async (payload, res) => {
+  const handlebarOptions = {
+    viewEngine: {
+      partialsDir: path.resolve("./src/templates/"),
+      defaultLayout: false,
+    },
+    viewPath: path.resolve("./src/templates/"),
+  };
+
+  transporter.use("compile", hbs(handlebarOptions));
+
+  const mailOptions = {
+    from: mailConfig.auth.user,
+    to: payload.email,
+    subject: "Info Forgot Password Apps Media",
+    template: "email-forgot-password",
+    context: {
+      password: payload.password,
+      full_name: payload.full_name,
+    },
+  };
+  transporter.sendMail(mailOptions, function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("success");
+    }
+  });
+};
+
 const sendMailRequestShooting = async (payload, res) => {
   const handlebarOptions = {
     viewEngine: {
@@ -70,4 +100,8 @@ const sendMailRequestShooting = async (payload, res) => {
   });
 };
 
-module.exports = { sendMailRegister, sendMailRequestShooting };
+module.exports = {
+  sendMailRegister,
+  sendMailRequestShooting,
+  sendMailChangePassword,
+};
