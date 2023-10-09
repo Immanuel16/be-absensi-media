@@ -25,7 +25,7 @@ const config = {
       pass: process.env.EMAIL_PASS,
     },
     port: 587,
-    secure: true,
+    secure: false,
   },
 };
 
