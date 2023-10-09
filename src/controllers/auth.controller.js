@@ -82,6 +82,7 @@ const changePassword = async (req, res) => {
     const payloadEmail = {
       password: base64Decrypt(password),
       full_name: user.full_name,
+      email,
     };
 
     await crewQueries.changePassword(data, base64Encrypt(email));
@@ -93,7 +94,7 @@ const changePassword = async (req, res) => {
       res,
       httpStatus.SUCCESS,
       "Change Password Success",
-      null
+      payloadEmail
     );
   } catch (error) {
     return responseError(
