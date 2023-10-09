@@ -82,6 +82,7 @@ const changePassword = async (req, res) => {
     const payloadEmail = {
       password: base64Decrypt(password),
       full_name: user.full_name,
+      user: user.username,
       email,
     };
 
