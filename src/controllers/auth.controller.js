@@ -95,7 +95,7 @@ const changePassword = async (req, res) => {
       res,
       httpStatus.SUCCESS,
       "Change Password Success",
-      null
+      payloadEmail
     );
   } catch (error) {
     return responseError(

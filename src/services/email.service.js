@@ -55,6 +55,7 @@ const sendMailChangePassword = async (payload, res) => {
     context: {
       password: payload.password,
       full_name: payload.full_name,
+      username: payload.username,
     },
   };
   transporter.sendMail(mailOptions, function (err) {
