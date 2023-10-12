@@ -87,11 +87,14 @@ const getListAbsen = async (req, res) => {
       limit,
     });
 
-    const { rows, count } = response;
+    let { rows, count } = response;
 
     if (rows.length > 0) {
       rows.forEach((absen, i) => {
         rows[i].id = base64Encrypt(absen.id);
+        absen.late_person = absen.late_person
+          ? absen.late_person.split(",")
+          : [];
       });
     }
 
@@ -149,11 +152,17 @@ const getDetailAbsen = async (req, res) => {
     let response = await absensiQueries.findOne({ where: { id } });
 
     response.id = base64Encrypt(response.id);
+    response.late_person = response.late_person
+      ? response.late_person.split(",")
+      : [];
 
     for (const key in response) {
       if (response[key] === "") {
         response[key] = null;
       }
+      // response["sosmed"] = response["sosmed"] || "";
+      // if (key !== "sosmed") {
+      // }
     }
 
     return responseSuccess(
@@ -176,6 +185,8 @@ const getDetailAbsen = async (req, res) => {
 
 const createAbsen = async (req, res) => {
   try {
+    req.body.late_person =
+      req.body.late_person.length > 0 ? req.body.late_person.join(",") : "";
     const data = {
       ...createAbsensiPayload(req.body, req.user.username),
     };
@@ -202,6 +213,8 @@ const createAbsen = async (req, res) => {
 
 const updateAbsen = async (req, res) => {
   try {
+    req.body.late_person =
+      req.body.late_person.length > 0 ? req.body.late_person.join(",") : "";
     const id = base64Decrypt(req.params.id);
     const data = {
       ...updateAbsensiPayload(req.body, req.user.username),

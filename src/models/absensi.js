@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       switcher: DataTypes.STRING,
       photo: DataTypes.STRING,
       sosmed: DataTypes.STRING,
+      late_person: DataTypes.STRING,
       sound1: DataTypes.STRING,
       sound2: DataTypes.STRING,
       created_by: DataTypes.STRING,

@@ -1,4 +1,4 @@
-const {v4} = require("uuid");
+const { v4 } = require("uuid");
 const moment = require("moment");
 
 const createAbsensiPayload = (params, user) => ({
@@ -15,9 +15,11 @@ const createAbsensiPayload = (params, user) => ({
   photo: params.photo,
   sound1: params.sound1,
   sound2: params.sound2,
+  sosmed: params.sosmed,
+  late_person: params.late_person,
   created_by: user,
   createdAt: moment().toISOString(),
-  updatedAt: moment().toISOString()
+  updatedAt: moment().toISOString(),
 });
 
 const updateAbsensiPayload = (params, user) => ({
@@ -33,8 +35,10 @@ const updateAbsensiPayload = (params, user) => ({
   photo: params.photo,
   sound1: params.sound1,
   sound2: params.sound2,
+  sosmed: params.sosmed,
+  late_person: params.late_person,
   updated_by: user,
-  updatedAt: moment().toISOString()
+  updatedAt: moment().toISOString(),
 });
 
-module.exports = { createAbsensiPayload, updateAbsensiPayload }
+module.exports = { createAbsensiPayload, updateAbsensiPayload };

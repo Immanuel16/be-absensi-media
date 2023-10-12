@@ -60,6 +60,8 @@ const updateAbsensi = async (req, res, next) => {
       photo: Joi.string().allow(""),
       sound1: Joi.string().required("Soundman wajib diisi"),
       sound2: Joi.string().allow(""),
+      sosmed: Joi.string().allow(null),
+      late_person: Joi.array(),
       ir: Joi.string().required("Ibadah Raya wajib diisi"),
       id: Joi.string().base64().required(),
     });
