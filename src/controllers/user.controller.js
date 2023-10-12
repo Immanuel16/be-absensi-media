@@ -357,6 +357,7 @@ const getBankCrew = async (req, res) => {
 const getListUserAbsence = async (req, res) => {
   try {
     let response = await crewQueries.findAllUserAbsence({
+      where: { status: 1 },
       order: [["username", "ASC"]],
     });
 
