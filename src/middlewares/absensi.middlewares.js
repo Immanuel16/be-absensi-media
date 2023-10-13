@@ -18,8 +18,8 @@ const createAbsensi = async (req, res, next) => {
       sound1: Joi.string().required("Soundman wajib diisi"),
       sound2: Joi.string().allow(""),
       ir: Joi.string().allow(""),
-      sosmed: Joi.string().allow(null),
-      late_person: Joi.array(),
+      sosmed: Joi.string().allow(""),
+      late_person: Joi.array().allow(""),
     });
 
     const result = schema.validate({
