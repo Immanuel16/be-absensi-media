@@ -5,6 +5,8 @@ const absensiMiddleware = require("../../../middlewares/absensi.middlewares");
 const router = express.Router();
 
 router.get("/", absensiController.getListAbsen);
+router.get("/late-member", absensiController.getListAllLateMember);
+router.get("/total-late-member", absensiController.getTotalLateCrew);
 router.get("/reports", absensiController.getListAllAbsen);
 router.post(
   "/create",

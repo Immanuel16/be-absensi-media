@@ -33,6 +33,31 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "absens",
+      scopes: {
+        lateMember: {
+          attributes: {
+            exclude: [
+              "tanggal",
+              "ir",
+              "kom1",
+              "kom2",
+              "lighting",
+              "cam1",
+              "cam2",
+              "cam3",
+              "switcher",
+              "photo",
+              "sosmed",
+              "sound1",
+              "sound2",
+              "created_by",
+              "updated_by",
+              "createdAt",
+              "updatedAt",
+            ],
+          },
+        },
+      },
     }
   );
   return absensi;

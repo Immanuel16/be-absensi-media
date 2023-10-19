@@ -6,6 +6,7 @@ const {
 } = require("../payloads/absensi.payload");
 const { responseError, responseSuccess } = require("../utils/response.util");
 const absensiQueries = require("../queries/absensi.query");
+const crewQueries = require("../queries/user_profiles.query");
 const { httpStatus } = require("../variables/response.variable");
 const { base64Encrypt, base64Decrypt } = require("../utils/encryptor.util");
 const moment = require("moment");
@@ -145,6 +146,124 @@ const getListAllAbsen = async (req, res) => {
   }
 };
 
+const getListAllLateMember = async (req, res) => {
+  try {
+    const data = await absensiQueries.findAllLateMember({
+      where: {
+        tanggal: {
+          [Op.between]: [startDate, endDate],
+        },
+        ir: "IR 1",
+        // [Op.or]: {
+        //   late_person: { [Op.not]: null },
+        //   late_person: { [Op.not]: "" },
+        // },
+      },
+      order: [["tanggal", "DESC"]],
+    });
+    if (data.length > 0) {
+      data.forEach((absen) => {
+        absen.id = base64Encrypt(absen.id);
+        absen.late_person = absen.late_person
+          ? absen.late_person.split(",")
+          : [];
+      });
+      // data.forEach((absen) => {
+      //   absen.late_person.sort((a, b) => {
+      //     let fa = a.toLowerCase(),
+      //       fb = b.toLowerCase();
+
+      //     if (fa < fb) {
+      //       return -1;
+      //     }
+      //     if (fa > fb) {
+      //       return 1;
+      //     }
+      //     return 0;
+      //   });
+      // });
+    }
+    return responseSuccess(
+      req,
+      res,
+      httpStatus.SUCCESS,
+      "Get Late Member List",
+      data
+    );
+  } catch (error) {
+    return responseError(
+      req,
+      res,
+      httpStatus.ERROR_GENERAL,
+      error.message,
+      null
+    );
+  }
+};
+
+const getTotalLateCrew = async (req, res) => {
+  try {
+    let response = await crewQueries.findAllUserAbsence({
+      where: {
+        status: 1,
+      },
+    });
+    response = response.map((res) => ({
+      username: res.username.toLowerCase(),
+    }));
+
+    let data = [];
+
+    await Promise.all(
+      response.map(async (res) => {
+        try {
+          let total = await absensiQueries.count({
+            where: {
+              late_person: {
+                [Op.substring]: res.username,
+              },
+              tanggal: {
+                [Op.between]: [startDate, endDate],
+              },
+            },
+          });
+          data.push({
+            name: res.username,
+            percentage: getPercentageLate(total) * 100,
+            total,
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      })
+    );
+
+    data.sort((a, b) => {
+      let fa = a.name.toLowerCase(),
+        fb = b.name.toLowerCase();
+
+      if (fa < fb) {
+        return -1;
+      }
+      if (fa > fb) {
+        return 1;
+      }
+      return 0;
+    });
+
+    data = data.filter((d) => d.total);
+    return responseSuccess(
+      req,
+      res,
+      httpStatus.SUCCESS,
+      "Get Total Late Crew Success",
+      data
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const getDetailAbsen = async (req, res) => {
   try {
     const id = base64Decrypt(req.params.id);
@@ -265,11 +384,28 @@ const deleteAbsen = async (req, res) => {
 const convertEmptyString = (obj) =>
   Object.keys(obj).forEach((k) => (obj[k] = obj[k] === "" ? null : obj[k]));
 
+const getPercentageLate = (total) => {
+  let start = new Date(startDate),
+    finish = new Date(endDate),
+    dayMilliseconds = 1000 * 60 * 60 * 24,
+    totalWeeks = 0;
+  while (start <= finish) {
+    var day = start.getDay();
+    if (day == 0) {
+      totalWeeks++;
+    }
+    start = new Date(+start + dayMilliseconds);
+  }
+  return total / totalWeeks;
+};
+
 module.exports = {
   getListAbsen,
   createAbsen,
   getDetailAbsen,
   getListAllAbsen,
+  getListAllLateMember,
+  getTotalLateCrew,
   updateAbsen,
   deleteAbsen,
 };
