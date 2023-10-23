@@ -159,7 +159,7 @@ const getListAllLateMember = async (req, res) => {
         //   late_person: { [Op.not]: "" },
         // },
       },
-      order: [["tanggal", "DESC"]],
+      order: [["tanggal", "ASC"]],
     });
     if (data.length > 0) {
       data.forEach((absen) => {
