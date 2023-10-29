@@ -14,7 +14,7 @@ router.get("/sapaan-gembala", generalController.getPastorGreetings);
 router.put("/sapaan-gembala", generalController.updatePastorGreetings);
 
 router.post("/recruitment/add", recruitmenController.createNewCandidate);
-router.post("/recruitments", recruitmenController.getListCandidate);
+router.get("/recruitments", recruitmenController.getListCandidate);
 
 router.post(
   "/shooting-request/add",
