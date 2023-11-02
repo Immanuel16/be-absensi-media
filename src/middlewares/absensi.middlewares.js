@@ -18,7 +18,7 @@ const createAbsensi = async (req, res, next) => {
       cam2: Joi.string().allow(""),
       cam3: Joi.string().allow(""),
       switcher: Joi.string().allow(""),
-      photo: Joi.string().allow(""),
+      photo: Joi.string().allow(null),
       sound1: Joi.string().required("Soundman wajib diisi"),
       sound2: Joi.string().allow(""),
       ir: Joi.string().allow(""),
