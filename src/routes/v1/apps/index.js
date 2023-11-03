@@ -5,6 +5,7 @@ const absensiRoutes = require("./absensi.router");
 const accountsRoutes = require("./account.router");
 const historyCashRoutes = require("./riwayat_kas.router");
 const generalController = require("../../../controllers/general.controller");
+const logErrorController = require("../../../controllers/api_log.controller");
 
 // import express from 'express';
 // import passport from 'passport';
@@ -16,6 +17,7 @@ const router = express.Router();
 
 /* middleware for all api has login */
 router.use(passport.authenticate("user", { session: false }));
+router.get("/log-errors", logErrorController.getLogErrors);
 router.put("/sapaan-gembala", generalController.updatePastorGreetings);
 router.use("/users", userProfileRoutes);
 router.use("/absensi", absensiRoutes);

@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class api_log extends Model {
     /**
@@ -13,19 +11,22 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  api_log.init({
-    tx_id: DataTypes.STRING,
-    url: DataTypes.STRING,
-    status: DataTypes.INTEGER,
-    body: DataTypes.JSON,
-    message: DataTypes.STRING,
-    created_by: DataTypes.STRING,
-    created_from: DataTypes.STRING,
-    updated_by: DataTypes.STRING,
-    updated_from: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'api_log',
-  });
+  api_log.init(
+    {
+      tx_id: DataTypes.STRING,
+      url: DataTypes.STRING,
+      status: DataTypes.INTEGER,
+      body: DataTypes.JSON,
+      message: DataTypes.STRING,
+      created_by: DataTypes.STRING,
+      created_from: DataTypes.STRING,
+      updated_by: DataTypes.STRING,
+      updated_from: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: "api_log",
+    }
+  );
   return api_log;
 };
