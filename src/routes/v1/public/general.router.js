@@ -14,7 +14,7 @@ router.get("/ministries-division", generalController.getListDivision);
 router.get("/sapaan-gembala", generalController.getPastorGreetings);
 router.put("/sapaan-gembala", generalController.updatePastorGreetings);
 
-router.get("/log-errors", recruitmentController.getListCandidate);
+router.get("/log-errors", logErrorController.getLogErrors);
 
 router.post("/recruitment/add", recruitmentController.createNewCandidate);
 router.get("/recruitments", recruitmentController.getListCandidate);
