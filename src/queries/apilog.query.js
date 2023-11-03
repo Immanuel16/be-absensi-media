@@ -6,7 +6,7 @@ const insertLog = (data) => {
 };
 
 const getLogErrors = () => {
-  const mainQuery = `SELECT DISTINCT * FROM api_logs as log LEFT JOIN ( SELECT id, username FROM user_profiles) as usr ON log.created_by = usr.id`;
+  const mainQuery = `SELECT DISTINCT * FROM api_logs as log LEFT JOIN ( SELECT id as userId, username FROM user_profiles) as usr ON log.created_by = usr.userId`;
   const completeQuery = `${mainQuery} ORDER BY log.createdAt DESC;`;
   return sequelize.query(completeQuery, {
     type: QueryTypes.SELECT,
