@@ -6,6 +6,7 @@ const rsvpRetreatController = require("../../../controllers/rsvp.controller");
 const userController = require("../../../controllers/user.controller");
 const historyCashController = require("../../../controllers/riwayat_kas.controller");
 const logErrorController = require("../../../controllers/api_log.controller");
+const natalController = require("../../../controllers/natal.controller");
 
 const router = express.Router();
 
@@ -35,5 +36,10 @@ router.get("/retreat/list", rsvpRetreatController.getListRetreat);
 
 /* get list user */
 router.get("/crew/list", userController.getListUserAbsence);
+
+/* natal */
+router.post("/natal/register", natalController.registerNatal);
+
+router.get("/natal/list", natalController.getListParticipantChristmas);
 
 module.exports = router;
