@@ -3,7 +3,7 @@ const natalQueries = require("../queries/natal.query");
 const { responseSuccess, responseError } = require("../utils/response.util");
 const { createNatalPayload } = require("../payloads/natal.payload");
 const { Op } = require("sequelize");
-const { base64Encrypt, base64Decrypt } = require("../utils/encryptor.util");
+const { base64Encrypt } = require("../utils/encryptor.util");
 
 const getListParticipantChristmas = async (req, res) => {
   try {
@@ -42,7 +42,7 @@ const getListParticipantChristmas = async (req, res) => {
     const data = {
       count,
       rows: rows.length,
-      absen: rows,
+      christmas: rows,
     };
     return responseSuccess(
       req,
