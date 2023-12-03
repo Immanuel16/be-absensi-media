@@ -92,7 +92,10 @@ const registerNatal = async (req, res) => {
       res,
       httpStatus.SUCCESS,
       "Registration Christmas Successfully",
-      null
+      {
+        id: base64Encrypt(data.id),
+        name: data.name,
+      }
     );
   } catch (error) {
     return responseError(
