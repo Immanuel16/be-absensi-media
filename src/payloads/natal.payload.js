@@ -11,4 +11,9 @@ const createNatalPayload = (params) => ({
   createdAt: moment().toISOString(),
 });
 
-module.exports = { createNatalPayload };
+const verifyParticipantsPayload = () => ({
+  status: 1,
+  updatedAt: moment().toISOString(),
+});
+
+module.exports = { createNatalPayload, verifyParticipantsPayload };

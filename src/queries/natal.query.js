@@ -11,9 +11,13 @@ const findAll = (params) => natal.findAll(params);
 /* find duplicate partisipan */
 const findOne = (params) => natal.findOne(params);
 
+/* verify check in participants */
+const verifyParticipant = (data, id) => natal.update(data, { where: { id } });
+
 module.exports = {
   create,
   findAll,
   findAndCountAll,
   findOne,
+  verifyParticipant,
 };

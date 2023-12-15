@@ -1,9 +1,12 @@
 const { httpStatus } = require("../variables/response.variable");
 const natalQueries = require("../queries/natal.query");
 const { responseSuccess, responseError } = require("../utils/response.util");
-const { createNatalPayload } = require("../payloads/natal.payload");
+const {
+  createNatalPayload,
+  verifyParticipantsPayload,
+} = require("../payloads/natal.payload");
 const { Op } = require("sequelize");
-const { base64Encrypt } = require("../utils/encryptor.util");
+const { base64Encrypt, base64Decrypt } = require("../utils/encryptor.util");
 
 const getListParticipantChristmas = async (req, res) => {
   try {
@@ -108,4 +111,52 @@ const registerNatal = async (req, res) => {
   }
 };
 
-module.exports = { getListParticipantChristmas, registerNatal };
+const verifyParticipant = async (req, res) => {
+  try {
+    const id = base64Decrypt(req.body.id);
+    // const id = req.body.id;
+    let data = {
+      ...verifyParticipantsPayload(),
+    };
+
+    const filteredUser = await natalQueries.findOne({
+      where: { id },
+    });
+
+    if (filteredUser.status) {
+      return (
+        responseError(
+          req,
+          res,
+          httpStatus.ERROR_GENERAL,
+          "Jemaat sudah terverifikasi check-in"
+        ),
+        null
+      );
+    }
+
+    await natalQueries.verifyParticipant(data, id);
+
+    return responseSuccess(
+      req,
+      res,
+      httpStatus.SUCCESS,
+      "Verifikasi berhasil",
+      filteredUser
+    );
+  } catch (error) {
+    return responseError(
+      req,
+      res,
+      httpStatus.ERROR_GENERAL,
+      error.message,
+      null
+    );
+  }
+};
+
+module.exports = {
+  getListParticipantChristmas,
+  registerNatal,
+  verifyParticipant,
+};

@@ -39,7 +39,7 @@ router.get("/crew/list", userController.getListUserAbsence);
 
 /* natal */
 router.post("/natal/register", natalController.registerNatal);
-
+router.put("/natal/verify", natalController.verifyParticipant);
 router.get("/natal/list", natalController.getListParticipantChristmas);
 
 module.exports = router;
