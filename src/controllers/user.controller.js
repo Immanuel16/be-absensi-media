@@ -185,7 +185,11 @@ const getCrewBirthdays = async (req, res) => {
             },
           },
         })
-      : await crewQueries.findCrewBirthdays();
+      : await crewQueries.findCrewBirthdays({
+          where: {
+            status: 1,
+          },
+        });
 
     response = response.filter((respon) => respon.username !== "nuel");
 
