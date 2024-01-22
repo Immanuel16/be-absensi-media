@@ -37,6 +37,10 @@ router.get("/retreat/list", rsvpRetreatController.getListRetreat);
 /* get list user */
 router.get("/crew/list", userController.getListUserAbsence);
 
+/* get all crews */
+router.get("/crews", userController.getAllCrew);
+router.get("crew/:id/detail", userController.getCrewDetail);
+
 /* natal */
 router.post("/natal/register", natalController.registerNatal);
 router.put("/natal/verify", natalController.verifyParticipant);

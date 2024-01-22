@@ -385,7 +385,7 @@ const getListUserAbsence = async (req, res) => {
 const getAllCrew = async (req, res) => {
   try {
     const offset = +req.query.offset || 0;
-    const limit = +req.query.limit || 6;
+    const limit = +req.query.limit || 50;
     let response = await crewQueries.findAndCountAll({
       order: [["username", "ASC"]],
       offset,
