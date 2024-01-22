@@ -401,7 +401,7 @@ const getAllCrew = async (req, res) => {
       });
     }
 
-    rows = rows.filter((row) => row.username !== "nuel");
+    // rows = rows.filter((row) => row.username !== "nuel");
 
     const data = {
       count,
