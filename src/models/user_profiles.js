@@ -31,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       baptis: DataTypes.INTEGER,
       orientasi: DataTypes.INTEGER,
       photo: DataTypes.STRING,
+      photo_public: DataTypes.STRING,
       status: DataTypes.INTEGER,
       role: DataTypes.STRING,
       email: DataTypes.STRING,
