@@ -390,6 +390,7 @@ const getAllCrew = async (req, res) => {
       order: [["username", "ASC"]],
       offset,
       limit,
+      status: 1,
     });
 
     let { rows, count } = response;
