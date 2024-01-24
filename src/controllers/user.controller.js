@@ -386,8 +386,9 @@ const getAllCrew = async (req, res) => {
   try {
     const offset = +req.query.offset || 0;
     const limit = +req.query.limit || 50;
+    const order = req.query.order_by || "username";
     let response = await crewQueries.findAndCountAll({
-      order: [["username", "ASC"]],
+      order: [[order, "ASC"]],
       offset,
       limit,
       where: { status: 1 },
