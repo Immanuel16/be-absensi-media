@@ -206,11 +206,15 @@ const getTotalLateCrew = async (req, res) => {
     let response = await crewQueries.findAllUserAbsence({
       where: {
         status: 1,
+        tanggal: {
+          [Op.between]: [startDate, endDate],
+        },
       },
     });
     response = response.map((res) => ({
       username: res.username.toLowerCase(),
     }));
+    console.log(response);
 
     let data = [];
 
