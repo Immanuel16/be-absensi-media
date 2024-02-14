@@ -22,7 +22,7 @@ const getListHistoryCash = async (req, res) => {
     const response = await historyCashQueries.findAndCountAll({
       where: {
         tanggal: {
-          [Op.between]: [start_date, end_date],
+          [Op.between]: ["2023-01-01", end_date],
         },
       },
       order: [["tanggal", "DESC"]],
