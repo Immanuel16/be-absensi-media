@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: "media-be",
+      name: "media-be-prod",
       script: "./dist/bin/www.js",
       instances: 1,
       exec_mode: "cluster",

@@ -11,6 +11,7 @@
     "build": "set NODE_ENV=production && npm run clean && babel ./src --out-dir dist --copy-files",
     "migrate": "npx sequelize-cli db:migrate",
     "migrate:undo": "npx sequelize-cli db:migrate:undo",
+    "migrate:natal": "npx sequelize-cli db:migrate --name 20231107024655-create-natal.js",
     "seeder": "npx sequelize-cli db:seed:all",
     "seeder:undo": "npx sequelize-cli db:seed:undo:all",
     "build-server": "babel -d ./dist ./src -s",
@@ -44,6 +45,7 @@
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "pdfkit-table": "^0.1.99",
+    "pm2": "^5.3.0",
     "sequelize": "^6.28.0",
     "uuid": "^9.0.0"
   },
