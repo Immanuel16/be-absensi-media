@@ -6,7 +6,6 @@ const createNatalPayload = (params) => ({
   name: params.name,
   address: params.address,
   birth_date: params.birth_date,
-  birth_place: params.birth_place,
   origin_church: params.originChurch,
   phone_number: params.phoneNumber,
   year: moment(moment().toISOString()).format("YYYY"),

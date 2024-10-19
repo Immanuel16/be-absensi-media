@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
   natal.init(
     {
       name: DataTypes.STRING,
-      age: DataTypes.STRING,
+      address: DataTypes.STRING,
+      birth_date: DataTypes.STRING,
       origin_church: DataTypes.STRING,
       phone_number: DataTypes.STRING,
       year: DataTypes.STRING,
