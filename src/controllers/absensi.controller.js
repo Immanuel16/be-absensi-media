@@ -121,7 +121,7 @@ const getListAllAbsen = async (req, res) => {
   try {
     const start_date = req.query.start_date || startDate;
     const end_date = req.query.end_date || endDate;
-    const church = req.query.church || '';
+    const church = `%${req.query.church}%` || '%';
 
     const data = await absensiQueries.findAll({
       where: {
@@ -129,7 +129,7 @@ const getListAllAbsen = async (req, res) => {
           [Op.between]: [start_date, end_date],
         },
         ir: {
-          [Op.like]: church
+          [Op.substring]: church
         }
       },
       order: [
