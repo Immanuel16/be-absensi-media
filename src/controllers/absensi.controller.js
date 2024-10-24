@@ -121,7 +121,7 @@ const getListAllAbsen = async (req, res) => {
   try {
     const start_date = req.query.start_date || startDate;
     const end_date = req.query.end_date || endDate;
-    const church = req.query.church || 'IR';
+    const church = req.query.church || '';
 
     const data = await absensiQueries.findAll({
       where: {
