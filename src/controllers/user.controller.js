@@ -425,6 +425,7 @@ const getAllCrew = async (req, res) => {
 const getTotalMinistryCrew = async (req, res) => {
   const start_date = req.query.start_date || startDate;
   const end_date = req.query.end_date || endDate;
+  const church = req.query.church || 'IR';
   try {
     let response = await crewQueries.findAllUserAbsence({
       order: [["username", "ASC"]],
@@ -502,6 +503,9 @@ const getTotalMinistryCrew = async (req, res) => {
               tanggal: {
                 [Op.between]: [start_date, end_date],
               },
+              ir: {
+                [Op.like]: church
+              }
             },
           });
           data.push({

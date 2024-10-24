@@ -121,12 +121,16 @@ const getListAllAbsen = async (req, res) => {
   try {
     const start_date = req.query.start_date || startDate;
     const end_date = req.query.end_date || endDate;
+    const church = req.query.church || 'IR';
 
     const data = await absensiQueries.findAll({
       where: {
         tanggal: {
           [Op.between]: [start_date, end_date],
         },
+        ir: {
+          [Op.like]: church
+        }
       },
       order: [
         ["tanggal", "ASC"],
