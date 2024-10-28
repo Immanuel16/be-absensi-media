@@ -8,8 +8,8 @@ const createAbsensi = async (req, res, next) => {
     const schema = Joi.object({
       tanggal: Joi.string().required("Tanggal pelayanan wajib diisi"),
       kom1: Joi.string().required("Operator komputer 1 wajib diisi"),
-      kom2: Joi.string().allow(""),
-      lighting: Joi.string().allow(""),
+      kom2: Joi.string().allow(null),
+      lighting: Joi.string().allow(null),
       cam1: Joi.when("ir", {
         is: (value) => value && value.includes("BTC"),
         then: Joi.string().allow(""),
@@ -18,7 +18,7 @@ const createAbsensi = async (req, res, next) => {
       cam2: Joi.string().allow(""),
       cam3: Joi.string().allow(""),
       switcher: Joi.string().allow(""),
-      photo: Joi.string().allow(""),
+      photo: Joi.string().allow(null),
       sound1: Joi.string().required("Soundman wajib diisi"),
       sound2: Joi.string().allow(""),
       ir: Joi.string().allow(""),
