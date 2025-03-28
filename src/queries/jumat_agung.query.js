@@ -1,19 +1,18 @@
-const jumat_agung = require("../models/jumat_agung");
+const { natal } = require("../models");
 
-const create = (data) => jumat_agung.create(data);
+const create = (data) => natal.create(data);
 
 /* get all list with paging */
-const findAndCountAll = (params) => jumat_agung.findAndCountAll(params);
+const findAndCountAll = (params) => natal.findAndCountAll(params);
 
 /* get all list for downloads */
-const findAll = (params) => jumat_agung.findAll(params);
+const findAll = (params) => natal.findAll(params);
 
 /* find duplicate partisipan */
-const findOne = (params) => jumat_agung.findOne(params);
+const findOne = (params) => natal.findOne(params);
 
 /* verify check in participants */
-const verifyParticipant = (data, id) =>
-  jumat_agung.update(data, { where: { id } });
+const verifyParticipant = (data, id) => natal.update(data, { where: { id } });
 
 module.exports = {
   create,
