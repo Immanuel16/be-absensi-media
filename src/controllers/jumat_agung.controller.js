@@ -16,23 +16,19 @@ const getListParticipantGoodFriday = async (req, res) => {
 
     const response = await jumatAgungQueries.findAndCountAll({
       where: {
-        [Op.and]: [
+        [Op.or]: [
           {
-            [Op.or]: [
-              {
-                name: {
-                  [Op.substring]: keyword,
-                },
-              },
-              {
-                origin_church: {
-                  [Op.substring]: keyword,
-                },
-              },
-            ],
+            name: {
+              [Op.substring]: keyword,
+            },
           },
-          { type: 1 },
+          {
+            origin_church: {
+              [Op.substring]: keyword,
+            },
+          },
         ],
+        type: 1,
       },
       order: [["createdAt", "DESC"]],
       offset,
