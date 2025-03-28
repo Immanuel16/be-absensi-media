@@ -51,5 +51,6 @@ router.get("/natal/list", natalController.getListParticipantChristmas);
 router.post("/jumat-agung", jumatAgungController.registerJumatAgung);
 router.put("/jumat-agung/verify", jumatAgungController.verifyParticipant);
 router.get("/jumat-agung", jumatAgungController.getListParticipantGoodFriday);
+router.get("/jumat-agung/reports", jumatAgungController.getReportsGoodFriday);
 
 module.exports = router;

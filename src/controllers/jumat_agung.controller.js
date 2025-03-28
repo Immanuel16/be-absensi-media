@@ -50,7 +50,7 @@ const getListParticipantGoodFriday = async (req, res) => {
     const data = {
       count,
       rows: rows.length,
-      christmas: rows,
+      list: rows,
     };
     return responseSuccess(
       req,
@@ -153,8 +153,47 @@ const verifyParticipant = async (req, res) => {
   }
 };
 
+const getReportsGoodFriday = async (req, res) => {
+  try {
+    const response = await jumatAgungQueries.findAll({
+      where: { type: 1 },
+      order: [["createdAt", "DESC"]],
+    });
+
+    let { rows, count } = response;
+
+    if (rows.length > 0) {
+      rows.forEach((row, i) => {
+        rows[i].id = base64Encrypt(row.id);
+      });
+    }
+
+    const data = {
+      count,
+      rows: rows.length,
+      list: rows,
+    };
+    return responseSuccess(
+      req,
+      res,
+      httpStatus.SUCCESS,
+      "Get List Christmas Participant",
+      data
+    );
+  } catch (error) {
+    return responseError(
+      req,
+      res,
+      httpStatus.ERROR_GENERAL,
+      error.message,
+      null
+    );
+  }
+};
+
 module.exports = {
   getListParticipantGoodFriday,
   registerJumatAgung,
   verifyParticipant,
+  getReportsGoodFriday,
 };
