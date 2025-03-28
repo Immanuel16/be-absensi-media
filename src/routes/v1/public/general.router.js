@@ -7,6 +7,7 @@ const userController = require("../../../controllers/user.controller");
 const historyCashController = require("../../../controllers/riwayat_kas.controller");
 const logErrorController = require("../../../controllers/api_log.controller");
 const natalController = require("../../../controllers/natal.controller");
+const jumatAgungController = require("../../../controllers/jumat_agung.controller");
 
 const router = express.Router();
 
@@ -45,5 +46,10 @@ router.get("crew/:id/detail", userController.getCrewDetail);
 router.post("/natal/register", natalController.registerNatal);
 router.put("/natal/verify", natalController.verifyParticipant);
 router.get("/natal/list", natalController.getListParticipantChristmas);
+
+/* jumat agung */
+router.post("/jumat-agung", jumatAgungController.registerJumatAgung);
+router.put("/jumat-agung/verify", jumatAgungController.verifyParticipant);
+router.get("/jumat-agung", jumatAgungController.getListParticipantGoodFriday);
 
 module.exports = router;
