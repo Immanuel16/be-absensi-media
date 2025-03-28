@@ -27,8 +27,10 @@ const getListParticipantGoodFriday = async (req, res) => {
               [Op.substring]: keyword,
             },
           },
+          {
+            type: 1,
+          },
         ],
-        type: 1,
       },
       order: [["createdAt", "DESC"]],
       offset,
