@@ -183,9 +183,57 @@ const getReportsGoodFriday = async (req, res) => {
   }
 };
 
+const getOptionsIbadahRaya = async (req, res) => {
+  try {
+    const response = await jumatAgungQueries.findAll({
+      where: { type: 1 },
+      order: [["createdAt", "DESC"]],
+    });
+
+    const quota_ir_1 = response.filter((res) => res.ir === "IR 1").length;
+    const quota_ir_2 = response.filter((res) => res.ir === "IR 2").length;
+    const quota_ir_3 = response.filter((res) => res.ir === "IR 3").length;
+
+    const data = [
+      {
+        name: "IR 1 - 08:00 WIB",
+        value: "IR 1",
+        quota: quota_ir_1,
+      },
+      {
+        name: "IR 2 - 10:30 WIB",
+        value: "IR 2",
+        quota: quota_ir_2,
+      },
+      {
+        name: "IR 3 - 13:00 WIB",
+        value: "IR 3",
+        quota: quota_ir_3,
+      },
+    ];
+
+    return responseSuccess(
+      req,
+      res,
+      httpStatus.SUCCESS,
+      "Get List Ibadah Raya",
+      data
+    );
+  } catch (error) {
+    return responseError(
+      req,
+      res,
+      httpStatus.ERROR_GENERAL,
+      error.message,
+      null
+    );
+  }
+};
+
 module.exports = {
   getListParticipantGoodFriday,
   registerJumatAgung,
   verifyParticipant,
   getReportsGoodFriday,
+  getOptionsIbadahRaya,
 };

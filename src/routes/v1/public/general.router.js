@@ -52,5 +52,6 @@ router.post("/jumat-agung", jumatAgungController.registerJumatAgung);
 router.put("/jumat-agung/verify", jumatAgungController.verifyParticipant);
 router.get("/jumat-agung", jumatAgungController.getListParticipantGoodFriday);
 router.get("/jumat-agung/reports", jumatAgungController.getReportsGoodFriday);
+router.get("/jumat-agung/ir", jumatAgungController.getOptionsIbadahRaya);
 
 module.exports = router;
