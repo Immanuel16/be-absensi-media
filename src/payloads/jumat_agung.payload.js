@@ -6,7 +6,7 @@ const createJumatAgungPayload = (params) => ({
   name: params.name,
   phone_number: params.phoneNumber,
   type: 1,
-  ir: param.ibadahRaya,
+  ir: params.ibadahRaya,
   year: moment(moment().toISOString()).format("YYYY"),
   createdAt: moment().toISOString(),
 });

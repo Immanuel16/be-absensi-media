@@ -166,9 +166,7 @@ const getReportsGoodFriday = async (req, res) => {
       });
     }
 
-    const data = {
-      list: response,
-    };
+    const data = response;
     return responseSuccess(
       req,
       res,
