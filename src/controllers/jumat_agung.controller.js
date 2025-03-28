@@ -160,18 +160,14 @@ const getReportsGoodFriday = async (req, res) => {
       order: [["createdAt", "DESC"]],
     });
 
-    let { rows, count } = response;
-
-    if (rows.length > 0) {
-      rows.forEach((row, i) => {
-        rows[i].id = base64Encrypt(row.id);
+    if (response.length > 0) {
+      response.forEach((row, i) => {
+        response[i].id = base64Encrypt(row.id);
       });
     }
 
     const data = {
-      count,
-      rows: rows.length,
-      list: rows,
+      list: response,
     };
     return responseSuccess(
       req,
