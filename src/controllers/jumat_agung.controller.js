@@ -12,7 +12,7 @@ const getListParticipantGoodFriday = async (req, res) => {
   try {
     const keyword = `%${req.query.keyword}%` || "%";
     const offset = +req.query.offset || 0;
-    const limit = +req.query.limit || 6;
+    const limit = +req.query.limit || 15;
 
     const response = await jumatAgungQueries.findAndCountAll({
       where: {
@@ -23,14 +23,12 @@ const getListParticipantGoodFriday = async (req, res) => {
             },
           },
           {
-            origin_church: {
+            ir: {
               [Op.substring]: keyword,
             },
           },
-          {
-            type: 1,
-          },
         ],
+        type: 1,
       },
       order: [["createdAt", "DESC"]],
       offset,
@@ -54,7 +52,7 @@ const getListParticipantGoodFriday = async (req, res) => {
       req,
       res,
       httpStatus.SUCCESS,
-      "Get List Christmas Participant",
+      "Get List Good Friday Participant",
       data
     );
   } catch (error) {
