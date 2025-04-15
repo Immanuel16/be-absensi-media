@@ -19,12 +19,12 @@ const getListParticipantGoodFriday = async (req, res) => {
         [Op.or]: [
           {
             name: {
-              [Op.substring]: keyword,
+              [Op.like]: keyword,
             },
           },
           {
             ir: {
-              [Op.substring]: keyword,
+              [Op.like]: keyword,
             },
           },
         ],
