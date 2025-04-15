@@ -10,12 +10,14 @@ const { base64Encrypt, base64Decrypt } = require("../utils/encryptor.util");
 
 const getListParticipantGoodFriday = async (req, res) => {
   try {
-    const keyword = `%${req.query.keyword}%` || "%";
+    const keywordRaw = req.query.keyword ?? "";
+    const keyword = `%${keywordRaw}%`;
     const offset = +req.query.offset || 0;
     const limit = +req.query.limit || 15;
 
     const response = await jumatAgungQueries.findAndCountAll({
       where: {
+        type: 1,
         [Op.or]: [
           {
             name: {
@@ -28,7 +30,6 @@ const getListParticipantGoodFriday = async (req, res) => {
             },
           },
         ],
-        type: 1,
       },
       order: [["createdAt", "DESC"]],
       offset,
