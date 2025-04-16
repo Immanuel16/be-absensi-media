@@ -12,6 +12,7 @@ const getListParticipantGoodFriday = async (req, res) => {
   try {
     const keywordRaw = req.query.keyword ?? "";
     const keyword = `%${keywordRaw}%`;
+    const ir = req.query.ir ?? "";
     const offset = +req.query.offset || 0;
     const limit = +req.query.limit || 15;
 
@@ -30,6 +31,7 @@ const getListParticipantGoodFriday = async (req, res) => {
             },
           },
         ],
+        ir,
       },
       order: [["createdAt", "DESC"]],
       offset,
